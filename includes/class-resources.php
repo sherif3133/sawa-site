@@ -12,6 +12,8 @@ final class Sawa_Site_Resources {
 
 	const PT = 'sawa_resource';
 
+	const SHERIF_PHOTO = 'https://yt3.googleusercontent.com/QEUGhmFScUn3JU2vsRhUO8wJLwELDawTD6tfd6zJoe1Ego2PqaBLj8UTfP1ZK_dWIg9228PeChc=s240-c-k-c0x00ffffff-no-rj';
+
 	const TYPES = array(
 		'course'   => 'كورس',
 		'video'    => 'فيديو',
@@ -81,11 +83,19 @@ final class Sawa_Site_Resources {
 
 	/** The channel's profile photo, read from the channel page. */
 	public static function channel_photo( $u ) {
-		$res = wp_remote_get( $u, array( 'timeout' => 15, 'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' ) );
-		if ( is_wp_error( $res ) ) {
-			return '';
+		$res = wp_remote_get(
+			$u,
+			array(
+				'timeout'    => 15,
+				'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+				'headers'    => array( 'Cookie' => 'CONSENT=YES+1; SOCS=CAI', 'Accept-Language' => 'en' ),
+			)
+		);
+		if ( ! is_wp_error( $res ) && preg_match( '~<meta property="og:image" content="([^"]+)"~', wp_remote_retrieve_body( $res ), $m ) ) {
+			return esc_url_raw( str_replace( '=s900-', '=s240-', html_entity_decode( $m[1] ) ) );
 		}
-		return preg_match( '~<meta property="og:image" content="([^"]+)"~', wp_remote_retrieve_body( $res ), $m ) ? esc_url_raw( html_entity_decode( $m[1] ) ) : '';
+		// YouTube sometimes hides the channel page from servers. Known photo for Sherif's channel.
+		return false !== stripos( $u, '@sherif.abdelbaset' ) ? self::SHERIF_PHOTO : '';
 	}
 
 	/**
@@ -93,10 +103,25 @@ final class Sawa_Site_Resources {
 	 * Runs once; items are matched by link so nothing is added twice.
 	 */
 	public static function upgrade() {
-		if ( (int) get_option( 'sawa_site_db', 1 ) >= 2 ) {
+		$db = (int) get_option( 'sawa_site_db', 1 );
+		if ( 2 === $db ) {
+			// 1.2.1: retry the channel photo where the first try found none.
+			update_option( 'sawa_site_db', 3 );
+			foreach ( get_posts( array( 'post_type' => self::PT, 'post_status' => 'any', 'posts_per_page' => 200 ) ) as $p ) {
+				$u = self::m( $p->ID, 'url' );
+				if ( self::yt_channel( $u ) && ! self::m( $p->ID, 'thumb' ) ) {
+					$photo = self::channel_photo( $u );
+					if ( $photo ) {
+						update_post_meta( $p->ID, '_sr_thumb', $photo );
+					}
+				}
+			}
 			return;
 		}
-		update_option( 'sawa_site_db', 2 );
+		if ( $db >= 2 ) {
+			return;
+		}
+		update_option( 'sawa_site_db', 3 );
 		$old = 'https://www.youtube.com/@sherifabdelbaset';
 		$new = 'https://www.youtube.com/@sherif.abdelbaset';
 		$set = get_option( Sawa_Site::OPT, array() );
