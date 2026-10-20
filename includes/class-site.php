@@ -73,6 +73,12 @@ final class Sawa_Site {
 	}
 
 	public static function current_template() {
+		if ( is_singular( 'post' ) ) {
+			return 'sawa-post';
+		}
+		if ( is_home() || is_category() || is_tag() || is_author() || is_date() || ( is_search() && ! is_admin() ) ) {
+			return 'sawa-blog';
+		}
 		if ( ! is_singular( 'page' ) ) {
 			return '';
 		}
@@ -185,12 +191,19 @@ final class Sawa_Site {
 		return '<div class="photo photo-ph ' . esc_attr( $class ) . '" role="img" aria-label="مكان صورة شريف"><span>' . esc_html( $label ) . '</span></div>';
 	}
 
+	/** "قراية ٥ دقايق" for the current post, at about 200 words a minute. */
+	public static function read_time() {
+		$words = count( preg_split( '/[\s]+/u', trim( wp_strip_all_tags( get_post_field( 'post_content', get_the_ID() ) ) ), -1, PREG_SPLIT_NO_EMPTY ) );
+		$min   = max( 1, (int) round( $words / 200 ) );
+		return 'قراية ' . ( 1 === $min ? 'دقيقة' : ( 2 === $min ? 'دقيقتين' : $min . ' دقايق' ) );
+	}
+
 	public static function header() {
 		$t     = self::current_template();
 		$items = array(
 			array( 'الرئيسية', self::url( 'sawa-home' ), 'sawa-home' ),
 			array( 'المحتوى المجاني', self::url( 'sawa-free' ), 'sawa-free' ),
-			array( 'المدونة', self::blog_url(), 'blog' ),
+			array( 'المدونة', self::blog_url(), 'sawa-blog' ),
 			array( 'عن شريف', self::url( 'sawa-about' ), 'sawa-about' ),
 		);
 		$tracker = self::tracker_url();

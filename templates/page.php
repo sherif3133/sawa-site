@@ -21,7 +21,10 @@ $sawa_tpl = Sawa_Site::current_template();
 <?php echo Sawa_Site::header(); // phpcs:ignore ?>
 <main id="main">
 <?php
-while ( have_posts() ) {
+if ( 'sawa-blog' === $sawa_tpl || 'sawa-post' === $sawa_tpl ) {
+	include SAWA_SITE_DIR . 'templates/' . str_replace( 'sawa-', '', $sawa_tpl ) . '.php';
+}
+while ( 'sawa-blog' !== $sawa_tpl && 'sawa-post' !== $sawa_tpl && have_posts() ) {
 	the_post();
 	$file = SAWA_SITE_DIR . 'templates/' . str_replace( 'sawa-', '', $sawa_tpl ) . '.php';
 	if ( file_exists( $file ) ) {
