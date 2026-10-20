@@ -80,7 +80,7 @@ final class Sawa_Site_Admin {
 				<h2>Joining</h2>
 				<table class="form-table" role="presentation">
 					<?php
-					$f( 'join_url', 'Join link (Skool)', 'Every "ادخل سوا" button goes here.', 'url' );
+					$f( 'join_url', 'Join link (Skool)', 'Every "ادخل سوا انجليش" button goes here.', 'url' );
 					$f( 'price', 'Price', 'Shown on the Join page and the final section, e.g. <code>$29</code>.' );
 					$f( 'price_period', 'Price period', 'e.g. <code>في الشهر</code>' );
 					$f( 'price_note', 'Price note' );

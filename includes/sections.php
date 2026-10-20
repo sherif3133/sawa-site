@@ -61,22 +61,22 @@ function sawa_sec_inside( $tracker_link = true ) {
 		array( 'أنا', 'برد على رسايلك خلال ٢٤–٤٨ ساعة، ومكالمتين كل أسبوع: اسألني أي حاجة، وقعدة مع المجتمع.', '' ),
 	);
 	$h = '<section class="sec soft" id="inside"><div class="wrap">'
-		. '<p class="eyebrow">خطة · ناس · وأنا</p><h2>جوه سوا</h2><div class="grid-2">';
+		. '<p class="eyebrow">خطة · ناس · وأنا</p><h2>جوه سوا انجليش</h2><div class="grid-2">';
 	foreach ( $cards as $i => $c ) {
 		$h .= '<article class="card' . ( 3 === $i ? ' card-ink' : '' ) . '"><h3>' . esc_html( $c[0] ) . '</h3><p>' . esc_html( $c[1] ) . '</p>'
 			. ( $c[2] ? '<a class="text-link" href="' . esc_url( $c[2] ) . '">شوف تطبيق المتابعة ←</a>' : '' ) . '</article>';
 	}
-	return $h . '</div><p class="note">سوا لسه جديد وبيتحسن بسرعة. كل تحديث جديد بيوصلك… وإنت بتشارك في بناءه.</p></div></section>';
+	return $h . '</div><p class="note">سوا انجليش لسه جديد وبيتحسن بسرعة. كل تحديث جديد بيوصلك… وإنت بتشارك في بناءه.</p></div></section>';
 }
 
 /** White. What happens after you join. Red: none. */
 function sawa_sec_steps() {
 	$steps = array(
 		array( 'الخطوة ١', 'ناس وصحاب', 'خطة قصيرة تستخدم بيها المجتمع وتتعرف على ناس بتذاكر زيك.' ),
-		array( 'الخطوة ٢', 'نحدد مستواك', 'A2 أو B1؟ إنت في المكان الصح. غير كده؟ هقولك بصراحة إن سوا مش ليك دلوقتي.' ),
+		array( 'الخطوة ٢', 'نحدد مستواك', 'A2 أو B1؟ إنت في المكان الصح. غير كده؟ هقولك بصراحة إن سوا انجليش مش ليك دلوقتي.' ),
 		array( 'الخطوة ٣', 'الخطة اليومية', 'خطة ١٥٠/٢٠٠ يوم. كل يوم عارف هتعمل إيه بالظبط.' ),
 	);
-	$h = '<section class="sec white" id="steps"><div class="wrap"><h2>أول ما تدخل سوا</h2><ol class="join-steps">';
+	$h = '<section class="sec white" id="steps"><div class="wrap"><h2>أول ما تدخل سوا انجليش</h2><ol class="join-steps">';
 	foreach ( $steps as $s ) {
 		$h .= '<li><span class="meta">' . esc_html( $s[0] ) . '</span><h3>' . esc_html( $s[1] ) . '</h3><p>' . esc_html( $s[2] ) . '</p></li>';
 	}
@@ -132,7 +132,7 @@ function sawa_sec_notfor() {
 		'عايز كل حاجة ببلاش وللأبد.',
 		'مستواك مش A2 أو B1.',
 	);
-	$h = '<section class="sec light" id="not-for"><div class="wrap narrow"><h2>سوا ' . sawa_red( 'مش ليك' ) . ' لو:</h2><ul class="lines">';
+	$h = '<section class="sec light" id="not-for"><div class="wrap narrow"><h2>سوا انجليش ' . sawa_red( 'مش ليك' ) . ' لو:</h2><ul class="lines">';
 	foreach ( $items as $i ) {
 		$h .= '<li>' . esc_html( $i ) . '</li>';
 	}
@@ -144,10 +144,10 @@ function sawa_sec_faq() {
 	$q = array(
 		array( 'أقدر أذاكر لوحدي ببلاش؟', 'جربت. المصادر مش المشكلة. الخطة والناس والمتابعة هما اللي ناقصين.' ),
 		array( 'معنديش وقت.', '٣٠–٤٠ دقيقة في اليوم. الباقي جوه اللي بتتفرج عليه أصلًا.' ),
-		array( 'مش متأكد من مستوايا.', 'هنحدد مستواك أول ما تدخل. ولو سوا مش مناسب ليك، الـ ٧ أيام بتحميك.' ),
+		array( 'مش متأكد من مستوايا.', 'هنحدد مستواك أول ما تدخل. ولو سوا انجليش مش مناسب ليك، الـ ٧ أيام بتحميك.' ),
 		array( 'غالي.', 'قارنه بشهر كلاسات، أو بعرض شغل واحد بالانجليزي.' ),
 		array( 'كله كلام تحفيزي؟', 'لا. فيه خطة وأدوات وشغل يومي. العقلية هي اللي بتخليك تعمله.' ),
-		array( 'ده كورس ولا كلاسات؟', 'لا ده ولا ده. سوا مش دروس خصوصية ولا كلاسات. الكلاسات بتديك كام ساعة في الأسبوع، وسوا بيخليك تذاكر ٣٠–٤٠ ساعة في الشهر، مع ناس ومعايا.' ),
+		array( 'ده كورس ولا كلاسات؟', 'لا ده ولا ده. سوا انجليش مش دروس خصوصية ولا كلاسات. الكلاسات بتديك كام ساعة في الأسبوع، وسوا انجليش بيخليك تذاكر ٣٠–٤٠ ساعة في الشهر، مع ناس ومعايا.' ),
 		array( 'لو مش عاجبني؟', 'ابعتلي رسالة أو املا الفورم في أول ٧ أيام، وفلوسك ترجعلك خلال ٢٤–٤٨ ساعة.' ),
 	);
 	$h = '<section class="sec white" id="faq"><div class="wrap narrow"><h2>أسئلتك… بصراحة</h2><div class="faq">';
@@ -164,7 +164,7 @@ function sawa_sec_close( $title = 'عمرك ما هتحس إنك جاهز. أن�
 		. '<h2 class="xl">' . esc_html( $title ) . '</h2>'
 		. '<div class="price-card"><p class="price"><b>' . esc_html( $s['price'] ) . '</b> <span>' . esc_html( $s['price_period'] ) . '</span></p>'
 		. '<ul><li>' . esc_html( $s['price_note'] ) . '</li><li>' . esc_html( $s['guarantee'] ) . '</li></ul>'
-		. Sawa_Site::join_button( 'ادخل سوا وابدأ النهارده', 'btn btn-red btn-lg' )
+		. Sawa_Site::join_button( 'ادخل سوا انجليش وابدأ النهارده', 'btn btn-red btn-lg' )
 		. '<p class="after">أول خطوة بعد ما تدخل: عرّف نفسك ولاقي الناس اللي هتذاكر معاهم.</p></div>'
 		. '</div></section>';
 }

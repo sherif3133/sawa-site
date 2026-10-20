@@ -13,9 +13,9 @@ $free = Sawa_Site::url( 'sawa-free' );
 		<div class="hero-text">
 			<p class="meta">سوا انجليش · مع شريف عبد الباسط</p>
 			<h1>بطل تبدأ من <span class="red">الأول</span> كل شهر.</h1>
-			<p class="lead">لو بقالك سنين بتذاكر انجليزي… بتبدأ وتقف وترجع من الأول… ولسه بتتجمد لما تيجي تتكلم، سوا معمول ليك. خطة يومية، ناس بتذاكر معاك، وأنا معاك في الطريق.</p>
+			<p class="lead">لو بقالك سنين بتذاكر انجليزي… بتبدأ وتقف وترجع من الأول… ولسه بتتجمد لما تيجي تتكلم، سوا انجليش معمول ليك. خطة يومية، ناس بتذاكر معاك، وأنا معاك في الطريق.</p>
 			<div class="cta-row">
-				<?php echo Sawa_Site::join_button( 'ادخل سوا', 'btn btn-light btn-lg' ); // phpcs:ignore ?>
+				<?php echo Sawa_Site::join_button( 'ادخل سوا انجليش', 'btn btn-light btn-lg' ); // phpcs:ignore ?>
 				<?php if ( $free ) : ?>
 					<a class="btn btn-ghost-light btn-lg" href="<?php echo esc_url( $free ); ?>">ابدأ بالمحتوى المجاني</a>
 				<?php endif; ?>

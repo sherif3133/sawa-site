@@ -15,10 +15,10 @@ if ( $s['vsl_url'] && preg_match( '~(?:youtu\.be/|[?&]v=|/embed/|/shorts/)([\w-]
 <section class="hero dark join-hero">
 	<div class="wrap narrow center-text">
 		<p class="meta">سوا انجليش · خطة · ناس · وأنا</p>
-		<h1>ادخل سوا، وكمّل المرة دي.</h1>
+		<h1>ادخل سوا انجليش، وكمّل المرة دي.</h1>
 		<p class="lead">خطة يومية لمستواك، ناس بتذاكر معاك كل يوم، وأنا بنفسي في الرسايل والمكالمات. مش كورس هتتفرج عليه لوحدك.</p>
 		<div class="cta-row center">
-			<?php echo Sawa_Site::join_button( 'ادخل سوا · ' . $s['price'] . ' ' . $s['price_period'], 'btn btn-red btn-lg' ); // phpcs:ignore ?>
+			<?php echo Sawa_Site::join_button( 'ادخل سوا انجليش · ' . $s['price'] . ' ' . $s['price_period'], 'btn btn-red btn-lg' ); // phpcs:ignore ?>
 		</div>
 		<p class="fine"><?php echo esc_html( $s['guarantee'] ); ?></p>
 	</div>
@@ -26,7 +26,7 @@ if ( $s['vsl_url'] && preg_match( '~(?:youtu\.be/|[?&]v=|/embed/|/shorts/)([\w-]
 <?php if ( $vsl ) : ?>
 <section class="sec dark video-sec">
 	<div class="wrap narrow">
-		<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $vsl ); ?>?rel=0" title="شريف بيشرح سوا" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+		<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $vsl ); ?>?rel=0" title="شريف بيشرح سوا انجليش" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
 	</div>
 </section>
 <?php endif; ?>

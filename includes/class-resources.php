@@ -27,6 +27,7 @@ final class Sawa_Site_Resources {
 
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register' ) );
+		add_action( 'init', array( __CLASS__, 'upgrade' ), 20 );
 		if ( is_admin() ) {
 			add_action( 'add_meta_boxes_' . self::PT, array( __CLASS__, 'box' ) );
 			add_action( 'save_post_' . self::PT, array( __CLASS__, 'save' ), 10, 2 );
@@ -70,6 +71,86 @@ final class Sawa_Site_Resources {
 		return preg_match( '~[?&]list=([\w-]+)~', (string) $u, $m ) ? $m[1] : '';
 	}
 
+	/** A YouTube channel link (not a video or playlist). Returns the @handle or ''. */
+	public static function yt_channel( $u ) {
+		if ( self::yt_id( $u ) || self::yt_list( $u ) ) {
+			return '';
+		}
+		return preg_match( '~youtube[.]com/(@[A-Za-z0-9_.-]+|channel/[A-Za-z0-9_-]+|c/[A-Za-z0-9_.-]+)~', (string) $u, $m ) ? $m[1] : '';
+	}
+
+	/** The channel's profile photo, read from the channel page. */
+	public static function channel_photo( $u ) {
+		$res = wp_remote_get( $u, array( 'timeout' => 15, 'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' ) );
+		if ( is_wp_error( $res ) ) {
+			return '';
+		}
+		return preg_match( '~<meta property="og:image" content="([^"]+)"~', wp_remote_retrieve_body( $res ), $m ) ? esc_url_raw( html_entity_decode( $m[1] ) ) : '';
+	}
+
+	/**
+	 * 1.2: the channel moved to @sherif.abdelbaset, and the free courses join the hub.
+	 * Runs once; items are matched by link so nothing is added twice.
+	 */
+	public static function upgrade() {
+		if ( (int) get_option( 'sawa_site_db', 1 ) >= 2 ) {
+			return;
+		}
+		update_option( 'sawa_site_db', 2 );
+		$old = 'https://www.youtube.com/@sherifabdelbaset';
+		$new = 'https://www.youtube.com/@sherif.abdelbaset';
+		$set = get_option( Sawa_Site::OPT, array() );
+		if ( is_array( $set ) && isset( $set['youtube_url'] ) && rtrim( $set['youtube_url'], '/' ) === $old ) {
+			$set['youtube_url'] = $new;
+			update_option( Sawa_Site::OPT, $set );
+		}
+		$all  = get_posts( array( 'post_type' => self::PT, 'post_status' => 'any', 'posts_per_page' => 200 ) );
+		$have = array();
+		foreach ( $all as $p ) {
+			$u = self::m( $p->ID, 'url' );
+			if ( rtrim( $u, '/' ) === $old ) {
+				$u = $new;
+				update_post_meta( $p->ID, '_sr_url', $new );
+			}
+			if ( self::yt_channel( $u ) ) {
+				update_post_meta( $p->ID, '_sr_featured', 0 );
+				wp_update_post( array( 'ID' => $p->ID, 'menu_order' => 10 ) );
+				$photo = self::channel_photo( $u );
+				if ( $photo ) {
+					update_post_meta( $p->ID, '_sr_thumb', $photo );
+				}
+			}
+			$have[] = self::yt_id( $u );
+		}
+		$courses = array(
+			array( 'vr4TURN9xwc', 'كيف تتعلم اللغة الانجليزية في 2026؟ | خطتك الكاملة من الصفر للطلاقة (+6 ساعات)', 'خطة كاملة من الصفر للطلاقة في فيديو واحد. لو مش عارف تبدأ منين، ابدأ من هنا.', 'course', 'all', '+٦ ساعات', 1 ),
+			array( '4TY7gGAmRq0', 'تعلم اللغة الإنجليزية من الصفر مجانًا | خطة كاملة + تطبيق عملي (+3 ساعات)', 'خطة كاملة ومعاها تطبيق عملي، للي بيبدأ من الصفر.', 'course', 'all', '+٣ ساعات', 0 ),
+			array( 'I9QGJ7gNYXE', 'اقرأ كتاب بالانجليزي معايا | Alex Hormozi - $100M Offers (1/7)', 'بنقرا كتاب كامل بالانجليزي مع بعض. ده الجزء الأول من ٧.', 'reading', 'b1', 'الجزء ١ من ٧', 0 ),
+		);
+		foreach ( $courses as $i => $c ) {
+			if ( in_array( $c[0], $have, true ) ) {
+				continue;
+			}
+			$id = wp_insert_post(
+				array(
+					'post_type'    => self::PT,
+					'post_status'  => 'publish',
+					'post_title'   => $c[1],
+					'post_excerpt' => $c[2],
+					'menu_order'   => $i - 5,
+				)
+			);
+			if ( $id && ! is_wp_error( $id ) ) {
+				update_post_meta( $id, '_sr_url', 'https://www.youtube.com/watch?v=' . $c[0] );
+				update_post_meta( $id, '_sr_type', $c[3] );
+				update_post_meta( $id, '_sr_level', $c[4] );
+				update_post_meta( $id, '_sr_length', $c[5] );
+				update_post_meta( $id, '_sr_featured', $c[6] );
+				update_post_meta( $id, '_sr_thumb', 'https://i.ytimg.com/vi/' . $c[0] . '/hqdefault.jpg' );
+			}
+		}
+	}
+
 	/** Items for the hub, featured first, then by menu order and date. */
 	public static function items() {
 		$q   = get_posts(
@@ -104,6 +185,7 @@ final class Sawa_Site_Resources {
 				'featured' => (bool) self::m( $p->ID, 'featured', 0 ),
 				'thumb'    => $thumb,
 				'playlist' => (bool) self::yt_list( $url ),
+				'channel'  => self::yt_channel( $url ),
 			);
 		}
 		usort(
@@ -166,6 +248,12 @@ final class Sawa_Site_Resources {
 		update_post_meta( $post_id, '_sr_length', sanitize_text_field( $in['length'] ?? '' ) );
 		update_post_meta( $post_id, '_sr_featured', empty( $in['featured'] ) ? 0 : 1 );
 
+		if ( $url && self::yt_channel( $url ) ) {
+			$photo = self::channel_photo( $url );
+			if ( $photo ) {
+				update_post_meta( $post_id, '_sr_thumb', $photo );
+			}
+		}
 		// YouTube: fill in the title and thumbnail.
 		if ( $url && ( self::yt_id( $url ) || self::yt_list( $url ) ) ) {
 			$res = wp_remote_get( 'https://www.youtube.com/oembed?format=json&url=' . rawurlencode( $url ), array( 'timeout' => 10 ) );
@@ -228,7 +316,7 @@ final class Sawa_Site_Resources {
 			return;
 		}
 		$items = array(
-			array( 'قناة شريف على يوتيوب', 'كل الفيديوهات والكورسات المجانية في مكان واحد. اشترك عشان يوصلك الجديد.', 'https://www.youtube.com/@sherifabdelbaset', 'video', 'all', '', 1 ),
+			array( 'قناة شريف على يوتيوب', 'كل الفيديوهات والكورسات المجانية في مكان واحد. اشترك عشان يوصلك الجديد.', 'https://www.youtube.com/@sherif.abdelbaset', 'video', 'all', '', 1 ),
 			array( '40 Values Checklist', 'اعرف إيه اللي يهمك فعلًا. لما تعرف "ليه" بتتعلم، بتكمّل.', home_url( '/40-values-checklist/' ), 'tool', 'all', '', 0 ),
 			array( 'Indonesian Love Story: Free Graded Reader', 'قصة كاملة في ٨ فصول بانجليزي متدرج. قراءة ممتعة وانت فاهم معظمها.', home_url( '/indonesian-love-story-free-graded-reader/' ), 'reading', 'all', '٨ فصول', 0 ),
 		);

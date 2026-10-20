@@ -35,7 +35,7 @@ final class Sawa_Site {
 			'price_period'  => 'في الشهر',
 			'price_note'    => 'السعر اللي تدخل بيه ثابت للأبد، وهيزيد مع كل تحسين.',
 			'guarantee'     => 'مش مناسب ليك؟ فلوسك ترجعلك خلال ٢٤–٤٨ ساعة، في أول ٧ أيام.',
-			'youtube_url'   => 'https://www.youtube.com/@sherifabdelbaset',
+			'youtube_url'   => 'https://www.youtube.com/@sherif.abdelbaset',
 			'stat_subs'     => '+10K',
 			'stat_views'    => '180K',
 			'stat_rating'   => '5.0',
@@ -179,7 +179,7 @@ final class Sawa_Site {
 
 	/* ------------------------------------------------------------------ pieces */
 
-	public static function join_button( $label = 'ادخل سوا', $class = 'btn btn-red' ) {
+	public static function join_button( $label = 'ادخل سوا انجليش', $class = 'btn btn-red' ) {
 		return '<a class="' . esc_attr( $class ) . '" href="' . esc_url( self::s( 'join_url' ) ) . '" target="_blank" rel="noopener">' . esc_html( $label ) . '</a>';
 	}
 
@@ -226,7 +226,7 @@ final class Sawa_Site {
 							<li><a href="<?php echo esc_url( $tracker ); ?>">المتابعة</a></li>
 						<?php endif; ?>
 					</ul>
-					<?php echo self::join_button( 'ادخل سوا', 'btn btn-ink btn-sm' ); // phpcs:ignore ?>
+					<?php echo self::join_button( 'ادخل سوا انجليش', 'btn btn-ink btn-sm' ); // phpcs:ignore ?>
 				</nav>
 			</div>
 		</header>
@@ -249,7 +249,7 @@ final class Sawa_Site {
 						array( 'المحتوى المجاني', self::url( 'sawa-free' ) ),
 						array( 'المدونة', self::blog_url() ),
 						array( 'عن شريف', self::url( 'sawa-about' ) ),
-						array( 'ادخل سوا', self::url( 'sawa-join' ) ? self::url( 'sawa-join' ) : self::s( 'join_url' ) ),
+						array( 'ادخل سوا انجليش', self::url( 'sawa-join' ) ? self::url( 'sawa-join' ) : self::s( 'join_url' ) ),
 						array( 'YouTube', self::s( 'youtube_url' ) ),
 						array( 'Skool', self::s( 'join_url' ) ),
 					);

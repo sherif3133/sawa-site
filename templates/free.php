@@ -21,13 +21,20 @@ $icon = array(
 	'tool'     => '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg>',
 );
 $card = function ( $it, $big = false ) use ( $icon ) {
-	$tl = Sawa_Site_Resources::TYPES[ $it['type'] ] ?? '';
+	$tl = $it['channel'] ? 'قناة يوتيوب' : ( Sawa_Site_Resources::TYPES[ $it['type'] ] ?? '' );
 	$ll = Sawa_Site_Resources::LEVELS[ $it['level'] ] ?? '';
 	$h  = '<article class="res' . ( $big ? ' res-big' : '' ) . '" data-type="' . esc_attr( $it['type'] ) . '" data-level="' . esc_attr( $it['level'] ) . '">';
 	$h .= '<a class="res-link" href="' . esc_url( $it['url'] ) . '" target="_blank" rel="noopener">';
-	$h .= $it['thumb']
+	if ( $it['channel'] ) {
+		$h .= '<span class="res-thumb res-channel">'
+			. ( $it['thumb'] ? '<img src="' . esc_url( $it['thumb'] ) . '" alt="" loading="lazy" referrerpolicy="no-referrer">' : '' )
+			. '<span class="ch-handle" dir="ltr">' . esc_html( $it['channel'] ) . '</span>'
+			. '<span class="ch-sub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>اشترك في القناة</span></span>';
+	} else {
+		$h .= $it['thumb']
 		? '<span class="res-thumb"><img src="' . esc_url( $it['thumb'] ) . '" alt="" loading="lazy"></span>'
 		: '<span class="res-thumb res-thumb-ph">' . ( $icon[ $it['type'] ] ?? '' ) . '</span>';
+	}
 	$h .= '<span class="res-body"><span class="res-meta"><span class="res-type">' . ( $icon[ $it['type'] ] ?? '' ) . esc_html( $tl ) . '</span>'
 		. ( 'all' !== $it['level'] ? '<span class="res-level">' . esc_html( $ll ) . '</span>' : '' )
 		. ( $it['length'] ? '<span>' . esc_html( $it['length'] ) . '</span>' : '' ) . '</span>';
@@ -39,7 +46,7 @@ $card = function ( $it, $big = false ) use ( $icon ) {
 ?>
 <section class="hero light free-hero">
 	<div class="wrap">
-		<p class="meta">ببلاش · من يوتيوب ومن سوا</p>
+		<p class="meta">ببلاش · من يوتيوب ومن سوا انجليش</p>
 		<h1>المحتوى المجاني</h1>
 		<p class="serif red">start here.</p>
 		<p class="lead">كورسات وفيديوهات وقراءة وأدوات، من غير ما تدور في مية مصدر. ابدأ بالكارت الأول، وبعدين اختار حسب مستواك.</p>
@@ -80,12 +87,12 @@ $card = function ( $it, $big = false ) use ( $icon ) {
 
 <section class="sec dark bridge">
 	<div class="wrap narrow center-text">
-		<h2>المحتوى المجاني بيعلمك.<br>سوا بيخليك <span class="red">تكمّل</span>.</h2>
+		<h2>المحتوى المجاني بيعلمك.<br>سوا انجليش بيخليك <span class="red">تكمّل</span>.</h2>
 		<p class="lead">المصادر مش المشكلة. الخطة والناس والمتابعة هما اللي ناقصين.</p>
 		<div class="cta-row center">
 			<?php
 			$join = Sawa_Site::url( 'sawa-join' );
-			echo $join ? '<a class="btn btn-light btn-lg" href="' . esc_url( $join ) . '">اعرف إيه اللي جوه سوا</a>' : Sawa_Site::join_button( 'ادخل سوا', 'btn btn-light btn-lg' ); // phpcs:ignore
+			echo $join ? '<a class="btn btn-light btn-lg" href="' . esc_url( $join ) . '">اعرف إيه اللي جوه سوا انجليش</a>' : Sawa_Site::join_button( 'ادخل سوا انجليش', 'btn btn-light btn-lg' ); // phpcs:ignore
 			?>
 		</div>
 	</div>
