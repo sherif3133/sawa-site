@@ -205,6 +205,7 @@ final class Sawa_Site {
 			array( 'المحتوى المجاني', self::url( 'sawa-free' ), 'sawa-free' ),
 			array( 'المدونة', self::blog_url(), 'sawa-blog' ),
 			array( 'عن شريف', self::url( 'sawa-about' ), 'sawa-about' ),
+			array( 'اختبر مستواك', home_url( '/placement/' ), '' ),
 		);
 		$tracker = self::tracker_url();
 		ob_start();
@@ -223,7 +224,7 @@ final class Sawa_Site {
 							<?php endif; ?>
 						<?php endforeach; ?>
 						<?php if ( $tracker ) : ?>
-							<li><a href="<?php echo esc_url( $tracker ); ?>">المتابعة</a></li>
+							<li><a href="<?php echo esc_url( home_url( '/app/' ) ); ?>">التطبيق</a></li>
 						<?php endif; ?>
 					</ul>
 					<?php echo self::join_button( 'ادخل سوا انجليش', 'btn btn-ink btn-sm' ); // phpcs:ignore ?>
@@ -249,6 +250,7 @@ final class Sawa_Site {
 						array( 'المحتوى المجاني', self::url( 'sawa-free' ) ),
 						array( 'المدونة', self::blog_url() ),
 						array( 'عن شريف', self::url( 'sawa-about' ) ),
+						array( 'اختبر مستواك ببلاش', home_url( '/placement/' ) ),
 						array( 'ادخل سوا انجليش', self::url( 'sawa-join' ) ? self::url( 'sawa-join' ) : self::s( 'join_url' ) ),
 						array( 'YouTube', self::s( 'youtube_url' ) ),
 						array( 'Skool', self::s( 'join_url' ) ),

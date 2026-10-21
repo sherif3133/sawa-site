@@ -21,6 +21,7 @@ $free = Sawa_Site::url( 'sawa-free' );
 				<?php endif; ?>
 			</div>
 			<p class="fine">لمستوى A2 و B1 · خطة ١٥٠/٢٠٠ يوم · ضمان استرجاع ٧ أيام</p>
+			<p class="fine"><a href="<?php echo esc_url( home_url( '/placement/' ) ); ?>" style="color:inherit;text-decoration:underline">مش عارف مستواك؟ اعمل اختبار تحديد المستوى ببلاش ←</a></p>
 		</div>
 		<div class="hero-photo">
 			<?php echo Sawa_Site::photo( 'photo_hero', 'صورة شريف: مقصوصة، ثابتة على الحافة السفلية' ); // phpcs:ignore ?>
