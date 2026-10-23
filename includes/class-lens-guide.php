@@ -14,7 +14,7 @@ final class Sawa_Site_Lens {
 	const VERSION = '0.8.0';
 
 	public static function file_url( $name ) {
-		return SAWA_SITE_URL . 'assets/lens/downloads/' . $name;
+		return SAWA_SITE_URL . 'assets/lens/downloads/' . $name . '?v=' . self::VERSION; // new ?v= each release: Cloudflare keeps the old zip otherwise
 	}
 
 	public static function img( $name ) {
