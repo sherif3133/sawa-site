@@ -1,7 +1,7 @@
 <?php
 /**
  * /lens/: the Language Lens install-and-use guide. A full page of its own (no theme), phone-first.
- * English by default; Arabic (RTL) with the toggle at the top (see lg_en / lg_ar / lg_t in class-lens-guide.php).
+ * English by default; Arabic (RTL) with the English | العربية toggle in the header (Sawa_Lang::boot() + the toggle in the site header; lg_en / lg_ar / lg_t in class-lens-guide.php write both languages).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,20 +33,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 <meta name="theme-color" content="#0F0F10">
 <title>Language Lens: download the extension and learn with it | Sawa English</title>
 <meta name="description" content="Language Lens explains any English word on YouTube and any website. A picture-by-picture guide to downloading, installing and using it, on computer and phone.">
-<script>
-/* Language: ?lang=ar|en, else the visitor's saved choice, else English. Runs before the page paints. */
-(function () {
-	var l = 'en';
-	try {
-		var q = new URLSearchParams(location.search).get('lang');
-		if (q === 'ar' || q === 'en') { l = q; localStorage.setItem('sawa_lang', l); } else { l = localStorage.getItem('sawa_lang') || 'en'; }
-	} catch (e) {}
-	if (l !== 'ar') { l = 'en'; }
-	var d = document.documentElement;
-	d.setAttribute('data-lang', l); d.lang = l; d.dir = l === 'ar' ? 'rtl' : 'ltr';
-	document.title = d.getAttribute('data-title-' + l);
-})();
-</script>
+<?php echo Sawa_Lang::boot(); // phpcs:ignore -- the site-wide language setting (English default, ?lang=ar, saved per visitor) ?>
 <link rel="icon" href="<?php echo esc_url( SAWA_LENS_URL . 'assets/icon-192.png' ); ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,15 +43,6 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 </head>
 <body class="sawa-page sawa-lens-page">
 <a class="skip" href="#main"><?php echo lg_t( 'Skip to content', 'اتخطى للمحتوى' ); // phpcs:ignore ?></a>
-<div class="lang-bar">
-	<div class="wrap lang-row">
-		<span class="lang-hint"><?php echo lg_t( 'Explanations in', 'الشرح بـ' ); // phpcs:ignore ?></span>
-		<div class="lang-toggle" role="group" aria-label="Language / اللغة">
-			<button type="button" data-set-lang="en" lang="en" aria-pressed="true">English</button>
-			<button type="button" data-set-lang="ar" lang="ar" aria-pressed="false">العربية</button>
-		</div>
-	</div>
-</div>
 <?php echo Sawa_Site::header( 'sawa-lens' ); // phpcs:ignore ?>
 <main id="main">
 

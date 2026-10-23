@@ -1,24 +1,14 @@
-/* /lens/ guide: language switch (English | العربية), copy buttons, and old /lens/#something links (the web app's address before /app) go on to /app/.
-   The language is set before paint by the inline script in the page head; this file handles the toggle:
-   sawaSetLang('en'|'ar') changes html[data-lang], lang, dir, the title, image alt text, and remembers it in localStorage "sawa_lang". */
+/* /lens/ guide: page title and image alt text follow the site language (SawaLang), copy buttons, and old /lens/#something links (the web app's address before /app) go on to /app/. */
 (function () {
   var d = document.documentElement;
   function lang() { return d.getAttribute('data-lang') === 'ar' ? 'ar' : 'en'; }
-  function apply(l) {
-    d.setAttribute('data-lang', l); d.lang = l; d.dir = l === 'ar' ? 'rtl' : 'ltr';
+  function apply() {
+    var l = lang();
     document.title = d.getAttribute('data-title-' + l) || document.title;
     document.querySelectorAll('img[data-alt-' + l + ']').forEach(function (i) { i.alt = i.getAttribute('data-alt-' + l); });
-    document.querySelectorAll('[data-set-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === l)); });
   }
-  window.sawaSetLang = function (l) {
-    if (l !== 'ar') l = 'en';
-    try { localStorage.setItem('sawa_lang', l); } catch (e) {}
-    apply(l);
-  };
-  apply(lang());
-  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-    b.addEventListener('click', function () { window.sawaSetLang(b.getAttribute('data-set-lang')); });
-  });
+  apply();
+  document.addEventListener('sawa-lang', apply); // fired by SawaLang.set() (Sawa_Lang::boot in sawa-site)
 
   var h = location.hash.replace('#', '');
   if (h && !document.getElementById(h)) { location.replace('/app/#' + h); return; }
