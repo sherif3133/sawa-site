@@ -21,11 +21,21 @@ if ( ! class_exists( 'Sawa_Lang' ) ) {
 
 	final class Sawa_Lang {
 
-		const VER = '1';
+		const VER = '2';
 		const KEY = 'sawa_lang';
 
 		public static function init() {
 			add_action( 'rest_api_init', array( __CLASS__, 'routes' ) );
+			// A ?lang= link is saved before any redirect (e.g. /tracker/ → /app/) can drop it.
+			add_action(
+				'init',
+				function () {
+					if ( isset( $_GET['lang'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+						self::current();
+					}
+				},
+				20
+			);
 		}
 
 		public static function norm( $l ) {
@@ -43,6 +53,9 @@ if ( ! class_exists( 'Sawa_Lang' ) ) {
 			if ( 'en' === $q || 'ar' === $q ) {
 				if ( $uid ) {
 					update_user_meta( $uid, self::KEY, $q );
+				}
+				if ( ! headers_sent() ) {
+					setcookie( self::KEY, $q, time() + YEAR_IN_SECONDS, '/', '', is_ssl(), false );
 				}
 				return $l = $q;
 			}
@@ -135,7 +148,7 @@ var a=d.querySelectorAll('[data-tattr]');for(i=0;i<a.length;i++){try{var o=JSON.
 apply(q?q[1]:(c.user||ls()||ck()||'en'));
 if(q&&history.replaceState){try{history.replaceState(null,'',location.href.replace(/([?&])lang=(en|ar)&?/,'$1').replace(/[?&](#|$)/,'$1'))}catch(e){}}
 save();
-window.SawaLang={get:function(){return l},set:function(x){x=x==='ar'?'ar':'en';if(x===l)return;apply(x);save();paint();try{d.dispatchEvent(new CustomEvent('sawa-lang',{detail:{lang:l}}))}catch(e){}if(c.reload)setTimeout(function(){location.reload()},60)},paint:paint,t:function(en,ar){return l==='ar'?ar:en}};
+window.SawaLang={get:function(){return l},set:function(x){x=x==='ar'?'ar':'en';if(x===l)return;apply(x);save();paint();try{d.dispatchEvent(new CustomEvent('sawa-lang',{detail:{lang:l}}))}catch(e){}if(c.reload)setTimeout(function(){location.reload()},350)},paint:paint,t:function(en,ar){return l==='ar'?ar:en}};
 d.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.sawa-lang button[data-l]');if(b){e.preventDefault();window.SawaLang.set(b.getAttribute('data-l'))}});
 if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',paint);else paint()})(
 JS;
