@@ -190,16 +190,18 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 				<div class="lg-vis"><div class="phone"><?php echo $img( 'yt-card.webp', 'The word card: pronunciation, level and the I know it, Learning and Curious buttons', 'كارت الكلمة: النطق والمستوى وأزرار I know it وLearning وCurious', 786, 1480 ); // phpcs:ignore ?></div></div>
 				<div class="lg-txt"><?php echo $num( 2 ); // phpcs:ignore ?><h3><?php echo lg_t( 'Tap a word and save it', 'اضغط على كلمة واحفظها' ); // phpcs:ignore ?></h3>
 					<?php lg_en(); ?>
-					<p>On a computer, hover a word. On a phone, tap it (this works on any website, not only YouTube; press and hold selects words). A card opens with the meaning, the pronunciation and the level (A1 to C2), and you choose:</p>
-					<ul><li><b>✓ I know it</b>: you know it already.</li><li><b>Learning</b>: you want to memorise it (only the important words).</li><li><b>💡 Curious</b>: you only want to understand it, and you earn XP.</li></ul>
+					<p>On a computer, click a word (on YouTube; on websites you hover it. You can switch each one between click and hover in the extension menu). On a phone, tap it (this works on any website, not only YouTube; press and hold selects words). A card opens with the meaning, the pronunciation and the level (A1 to C2), and you choose:</p>
+					<ul><li><b>✓ I know it</b>: you know it already.</li><li><b>Learning</b>: you want to memorise it (only the important words).</li><li><b>💡 Curious</b>: you only looked it up: you earn XP, and it is <b>not</b> saved to Review. Changed your mind? Press <b>Learning</b> to save it.</li></ul>
 					<p>If the meaning is not clear, tap <b>💬 Meaning here</b> under the card: it explains the word <b>in this exact sentence</b>.</p>
-					<p>Phrases and idioms (like “give up” or “by the way”) have a <b>blue underline</b> as one unit: tap any word of it to get the meaning of the whole expression.</p>
+					<p>Phrases and idioms (like “give up” or “by the way”) have a <b>double pink underline</b> as one unit: tap any word of it to get the meaning of the whole expression.</p>
+					<p><b>Word colours</b> (they differ by shape too, so they are easy to tell apart): <b>yellow box</b> = Learning · <b>solid blue line</b> = new for you · <b>dotted orange line</b> = hard or rare · <b>double pink line</b> = phrase. Words you know have no colour. In the extension menu you can choose <b>All 4</b>, <b>Learning only</b> or <b>Off</b>.</p>
 					<p>Every word you save shows up in <b>Review</b> in the <a href="<?php echo esc_url( $app ); ?>">Sawa app</a> as a review card.</p>
 					<?php lg_ar(); ?>
-					<p>على الكمبيوتر حط الماوس على الكلمة. على الموبايل اضغط عليها (ده بيشتغل في أي موقع، مش يوتيوب بس؛ والضغط المطوّل بيحدد كلمات). هيفتح كارت فيه المعنى والنطق والمستوى (من A1 لحد C2) وتختار:</p>
-					<ul><li><b>✓ I know it</b>: عارفها.</li><li><b>Learning</b>: عايز تحفظها (الكلمات المهمة بس).</li><li><b>💡 Curious</b>: عايز تفهمها بس وبتاخد XP.</li></ul>
+					<p>على الكمبيوتر دوس على الكلمة في يوتيوب، وفي المواقع حط الماوس عليها (وتقدر تغيّر كل واحد بين click وhover من قائمة الإضافة). على الموبايل اضغط عليها (ده بيشتغل في أي موقع، مش يوتيوب بس؛ والضغط المطوّل بيحدد كلمات). هيفتح كارت فيه المعنى والنطق والمستوى (من A1 لحد C2) وتختار:</p>
+					<ul><li><b>✓ I know it</b>: عارفها.</li><li><b>Learning</b>: عايز تحفظها (الكلمات المهمة بس).</li><li><b>💡 Curious</b>: بصّيت عليها بس: بتاخد XP ومش بتتحفظ في المراجعة. غيّرت رأيك؟ دوس <b>Learning</b> وتتحفظ.</li></ul>
 					<p>لو المعنى مش واضح، دوس <b>💬 Meaning here</b> تحت الكارت: بيشرحلك معنى الكلمة <b>في الجملة دي بالذات</b>.</p>
-					<p>العبارات والتعبيرات (زي “give up” أو “by the way”) عليها <b>خط أزرق</b> كوحدة واحدة: دوس على أي كلمة فيها وهتشوف معنى العبارة كلها.</p>
+					<p>العبارات والتعبيرات (زي “give up” أو “by the way”) عليها <b>خطين بمبي</b> كوحدة واحدة: دوس على أي كلمة فيها وهتشوف معنى العبارة كلها.</p>
+					<p><b>ألوان الكلمات</b> (مختلفة في الشكل كمان، فسهل تفرّق بينها): <b>مربع أصفر</b> = Learning · <b>خط أزرق</b> = كلمة جديدة ليك · <b>خط برتقاني منقّط</b> = صعبة أو نادرة · <b>خطين بمبي</b> = عبارة. الكلمات اللي تعرفها من غير لون. من قائمة الإضافة تقدر تختار <b>All 4</b> أو <b>Learning only</b> أو <b>Off</b>.</p>
 					<p>كل كلمة تحفظها بتظهر في <b>Review</b> في <a href="<?php echo esc_url( $app ); ?>">تطبيق سوا</a> كارت مراجعة.</p>
 					<?php lg_end(); ?></div>
 			</article>
@@ -209,11 +211,13 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 					<?php lg_en(); ?>
 					<p>All the words are written under the video. Tap a sentence to play it. Next to each sentence:</p>
 					<ul><li><b>Auto-scroll</b> (above the transcript): the text moves along with the video.</li><li><b>🔁 Repeat</b>: the sentence repeats so you can say it after the speaker.</li><li><b>☆ the star</b>: saves the sentence as a review card.</li><li>The wave button: how it sounds in fast speech.</li></ul>
-					<p>On a computer you also have <b>A / S / D</b> for previous sentence / repeat / next sentence.</p>
+					<p><b>Over the caption</b> (hover it on a computer, tap it on a phone) there is a small strip: <b>‹ ⟲ ›</b> previous / repeat / next sentence, <b>🔁 Loop</b> one sentence, <b>0.75×</b> slower, and <b>🗣 Shadow</b>: after each sentence the video waits for you to say it, then goes on. Turn on <b>🎤</b> to hear yourself right after the speaker (your voice stays on your device).</p>
+					<p>On a phone, <b>swipe the caption</b> left or right for the next or previous sentence, and <b>double-tap</b> it to repeat. On a computer: <b>A / S / D</b> previous / repeat / next, <b>R</b> loop, <b>X</b> slower, <b>W</b> shadow.</p>
 					<?php lg_ar(); ?>
 					<p>تحت الفيديو كل الكلام مكتوب. دوس على أي جملة تتشغّل. وجنب كل جملة:</p>
 					<ul><li><b>Auto-scroll</b> (فوق الـ Transcript): الشرح بيمشي لوحده مع الفيديو.</li><li><b>🔁 Repeat</b>: تتكرر وقولها ورا المتكلم.</li><li><b>☆ النجمة</b>: تحفظ الجملة في كروت المراجعة.</li><li>زرار الموجة: إزاي بتتنطق في الكلام السريع.</li></ul>
-					<p>على الكمبيوتر كمان: <b>A / S / D</b> للجملة اللي قبلها / تكرار / اللي بعدها.</p>
+					<p><b>فوق الترجمة</b> (حط الماوس عليها على الكمبيوتر، أو دوس عليها على الموبايل) فيه شريط صغير: <b>‹ ⟲ ›</b> الجملة اللي قبلها / تكرار / اللي بعدها، <b>🔁 Loop</b> لجملة واحدة، <b>0.75×</b> أبطأ، و<b>🗣 Shadow</b>: بعد كل جملة الفيديو يستناك تقولها وبعدين يكمّل. شغّل <b>🎤</b> وهتسمع صوتك بعد المتكلم على طول (صوتك بيفضل على جهازك).</p>
+					<p>على الموبايل <b>اسحب الترجمة</b> يمين أو شمال للجملة اللي بعدها أو اللي قبلها، و<b>دوس مرتين</b> للتكرار. على الكمبيوتر: <b>A / S / D</b> قبلها / تكرار / بعدها، <b>R</b> تكرار مستمر، <b>X</b> أبطأ، <b>W</b> Shadow.</p>
 					<?php lg_end(); ?></div>
 			</article>
 			<article class="lg-use">
