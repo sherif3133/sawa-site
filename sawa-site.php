@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Sawa Site
  * Description:       The Sawa English website: home, about, join and free-content pages in the Sawa visual identity, plus a branded shell for the tracker and review pages. Pick a "Sawa:" template for a page under Page → Template.
- * Version:           1.3.0
+ * Version:           1.4.0
  * Author:            Sawa English
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -14,12 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SAWA_SITE_VER', '1.3.0' );
+define( 'SAWA_SITE_VER', '1.4.0' );
 define( 'SAWA_SITE_URL', plugin_dir_url( __FILE__ ) );
 define( 'SAWA_SITE_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once SAWA_SITE_DIR . 'includes/class-site.php';
 require_once SAWA_SITE_DIR . 'includes/class-resources.php';
+require_once SAWA_SITE_DIR . 'includes/class-lens-guide.php';
 require_once SAWA_SITE_DIR . 'includes/sections.php';
 if ( is_admin() ) {
 	require_once SAWA_SITE_DIR . 'includes/class-site-admin.php';

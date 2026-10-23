@@ -198,13 +198,14 @@ final class Sawa_Site {
 		return 'قراية ' . ( 1 === $min ? 'دقيقة' : ( 2 === $min ? 'دقيقتين' : $min . ' دقايق' ) );
 	}
 
-	public static function header() {
-		$t     = self::current_template();
+	public static function header( $current = '' ) {
+		$t     = $current ? $current : self::current_template();
 		$items = array(
 			array( 'الرئيسية', self::url( 'sawa-home' ), 'sawa-home' ),
 			array( 'المحتوى المجاني', self::url( 'sawa-free' ), 'sawa-free' ),
 			array( 'المدونة', self::blog_url(), 'sawa-blog' ),
 			array( 'عن شريف', self::url( 'sawa-about' ), 'sawa-about' ),
+			array( 'Language Lens', home_url( '/lens/' ), 'sawa-lens' ),
 			array( 'اختبر مستواك', home_url( '/placement/' ), '' ),
 		);
 		$tracker = self::tracker_url();
@@ -250,6 +251,7 @@ final class Sawa_Site {
 						array( 'المحتوى المجاني', self::url( 'sawa-free' ) ),
 						array( 'المدونة', self::blog_url() ),
 						array( 'عن شريف', self::url( 'sawa-about' ) ),
+						array( 'Language Lens', home_url( '/lens/' ) ),
 						array( 'اختبر مستواك ببلاش', home_url( '/placement/' ) ),
 						array( 'ادخل سوا انجليش', self::url( 'sawa-join' ) ? self::url( 'sawa-join' ) : self::s( 'join_url' ) ),
 						array( 'YouTube', self::s( 'youtube_url' ) ),
