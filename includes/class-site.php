@@ -17,6 +17,7 @@ final class Sawa_Site {
 		'sawa-join'  => 'Sawa: Join',
 		'sawa-free'  => 'Sawa: Free content',
 		'sawa-app'   => 'Sawa: App page (tracker, review form)',
+		'sawa-privacy' => 'Sawa: Privacy',
 	);
 
 	public static function init() {
@@ -24,6 +25,21 @@ final class Sawa_Site {
 		add_filter( 'template_include', array( __CLASS__, 'template_include' ), 99 );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'assets' ), 999 );
 		add_filter( 'body_class', array( __CLASS__, 'body_class' ) );
+		add_action( 'init', array( __CLASS__, 'privacy_page' ), 30 );
+	}
+
+	/** Makes the Privacy page at /privacy/ once (Google's sign-in screen links to it) and sets it as WordPress's privacy page. */
+	public static function privacy_page() {
+		if ( get_option( 'sawa_site_privacy' ) ) {
+			return;
+		}
+		$p  = get_page_by_path( 'privacy' );
+		$id = $p ? $p->ID : wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'publish', 'post_title' => 'Privacy', 'post_name' => 'privacy', 'post_content' => '' ) );
+		if ( $id && ! is_wp_error( $id ) ) {
+			update_post_meta( $id, '_wp_page_template', 'sawa-privacy' );
+			update_option( 'wp_page_for_privacy_policy', $id );
+			update_option( 'sawa_site_privacy', $id );
+		}
 	}
 
 	/* ------------------------------------------------------------------ settings */
@@ -278,6 +294,10 @@ final class Sawa_Site {
 			</div>
 			<div class="wrap foot-meta">
 				<span>© <?php echo esc_html( wp_date( 'Y' ) ); ?> Sawa English · <?php echo Sawa_Lang::t( 'Sherif Abdelbaset', 'شريف عبد الباسط' ); // phpcs:ignore ?></span>
+				<?php $privacy = self::url( 'sawa-privacy' ); ?>
+				<?php if ( $privacy ) : ?>
+					<a href="<?php echo esc_url( $privacy ); ?>"><?php echo Sawa_Lang::t( 'Privacy', 'الخصوصية' ); // phpcs:ignore ?></a>
+				<?php endif; ?>
 				<?php $terms = get_page_by_path( 'term_conditions' ); ?>
 				<?php if ( $terms ) : ?>
 					<a href="<?php echo esc_url( get_permalink( $terms ) ); ?>"><?php echo Sawa_Lang::t( 'Terms and conditions', 'الشروط والأحكام' ); // phpcs:ignore ?></a>
