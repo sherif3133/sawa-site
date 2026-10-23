@@ -88,7 +88,7 @@ $card = function ( $it, $big = false ) use ( $icon ) {
 <section class="sec dark bridge">
 	<div class="wrap narrow center-text">
 		<h2><?php echo Sawa_Lang::th( 'Free content teaches you.<br>Sawa English helps you <span class="red">keep going</span>.', 'المحتوى المجاني بيعلمك.<br>سوا انجليش بيخليك <span class="red">تكمّل</span>.' ); // phpcs:ignore ?></h2>
-		<p class="lead"><?php echo sawa_t( 'Resources aren't the problem. A plan, people and someone following up are what's missing.', 'المصادر مش المشكلة. الخطة والناس والمتابعة هما اللي ناقصين.' ); // phpcs:ignore ?></p>
+		<p class="lead"><?php echo sawa_t( 'Resources aren\'t the problem. A plan, people and someone following up are what\'s missing.', 'المصادر مش المشكلة. الخطة والناس والمتابعة هما اللي ناقصين.' ); // phpcs:ignore ?></p>
 		<div class="cta-row center">
 			<?php
 			$join = Sawa_Site::url( 'sawa-join' );
