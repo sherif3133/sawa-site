@@ -4,6 +4,7 @@
  * - XML-RPC off (nothing of ours uses it; it is a favourite target for password guessing).
  * - Usernames stay private: no /wp-json/wp/v2/users list, no ?author=1 redirect, no users sitemap.
  * - Login limiting: 5 wrong passwords from one address → that address waits 15 minutes.
+ * - "Lost password" never says whether an email has an account.
  * Each part can be switched off with a filter, e.g. add_filter( 'sawa_site_login_limit', '__return_false' ) if Wordfence does it.
  */
 
@@ -15,6 +16,9 @@ final class Sawa_Site_Hardening {
 
 	const TRIES = 5;
 	const WAIT  = 15 * MINUTE_IN_SECONDS;
+
+	/** Cloudflare's edge addresses (cloudflare.com/ips). The site sits behind Cloudflare, so REMOTE_ADDR is Cloudflare's, not the student's. */
+	const CLOUDFLARE = array( '173.245.48.0/20', '103.21.244.0/22', '103.22.200.0/22', '103.31.4.0/22', '141.101.64.0/18', '108.162.192.0/18', '190.93.240.0/20', '188.114.96.0/20', '197.234.240.0/22', '198.41.128.0/17', '162.158.0.0/15', '104.16.0.0/13', '104.24.0.0/14', '172.64.0.0/13', '131.0.72.0/22', '2400:cb00::/32', '2606:4700::/32', '2803:f800::/32', '2405:b500::/32', '2405:8100::/32', '2a06:98c0::/29', '2c0f:f248::/32' );
 
 	public static function init() {
 		if ( apply_filters( 'sawa_site_block_xmlrpc', true ) ) {
@@ -33,6 +37,9 @@ final class Sawa_Site_Hardening {
 			add_filter( 'authenticate', array( __CLASS__, 'check_lock' ), 30, 1 );
 			add_action( 'wp_login_failed', array( __CLASS__, 'failed' ) );
 			add_action( 'wp_login', array( __CLASS__, 'succeeded' ) );
+		}
+		if ( apply_filters( 'sawa_site_quiet_lost_password', true ) ) {
+			add_action( 'lostpassword_post', array( __CLASS__, 'quiet_lost_password' ), 10, 2 );
 		}
 	}
 
@@ -66,8 +73,41 @@ final class Sawa_Site_Hardening {
 		}
 	}
 
+	/** An unknown email or username gets the same "check your email" page as a real one. */
+	public static function quiet_lost_password( $errors, $user_data ) {
+		$only_unknown = ! array_diff( $errors->get_error_codes(), array( 'invalid_email', 'invalidcombo' ) );
+		if ( ! $user_data && $only_unknown && ! empty( $_POST['user_login'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			wp_safe_redirect( add_query_arg( 'checkemail', 'confirm', wp_login_url() ) );
+			exit;
+		}
+	}
+
+	private static function in_range( $ip, $cidr ) {
+		list( $net, $bits ) = explode( '/', $cidr );
+		$a = @inet_pton( $ip ); // phpcs:ignore WordPress.PHP.NoSilencedErrors
+		$b = @inet_pton( $net ); // phpcs:ignore WordPress.PHP.NoSilencedErrors
+		if ( false === $a || false === $b || strlen( $a ) !== strlen( $b ) ) {
+			return false;
+		}
+		$bytes = intdiv( (int) $bits, 8 );
+		$rest  = (int) $bits % 8;
+		if ( substr( $a, 0, $bytes ) !== substr( $b, 0, $bytes ) ) {
+			return false;
+		}
+		return ! $rest || 0 === ( ( ord( $a[ $bytes ] ) ^ ord( $b[ $bytes ] ) ) & ( 0xFF << ( 8 - $rest ) ) & 0xFF );
+	}
+
+	/** The student's own address: CF-Connecting-IP, but only when the request really came through Cloudflare (anyone can send that header). */
 	private static function ip() {
-		return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		if ( ! empty( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
+			foreach ( self::CLOUDFLARE as $cidr ) {
+				if ( self::in_range( $ip, $cidr ) ) {
+					return sanitize_text_field( wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] ) );
+				}
+			}
+		}
+		return $ip;
 	}
 
 	private static function key() {
