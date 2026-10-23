@@ -104,7 +104,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 					<div class="mk mk-tool" dir="ltr"><span class="url">chrome://…</span><span class="puz">🧩</span><span class="pop"><b>Language Lens</b><i class="pin">📌</i></span></div></div>
 			</li>
 			<li>
-				<div class="lg-txt"><span class="lg-n">٧</span><h3>سجّل دخول بحساب سوا انجليش</h3><p>اضغط أيقونة Language Lens ثم <b>Sign in with Sawa English</b> ثم ادخل بنفس حسابك في تطبيق سوا. لازم حسابك يكون متفعّل. لو لسه معندكش، <a href="<?php echo esc_url( Sawa_Site::s( 'join_url' ) ); ?>">ادخل سوا انجليش</a>.</p></div>
+				<div class="lg-txt"><span class="lg-n">٧</span><h3>سجّل دخول بحساب سوا انجليش</h3><p>اضغط أيقونة Language Lens ثم <b>Sign in with Sawa English</b> ثم ادخل بنفس حسابك في تطبيق سوا. لازم حسابك يكون متفعّل. لو لسه معندكش، <a href="<?php echo esc_url( Sawa_Site::s( 'join_url' ) ); ?>">ادخل سوا انجليش</a>.</p><p class="fine">بعد أول تسجيل دخول هتفتحلك صفحة اختبار تحديد المستوى (ببلاش) في تبويب جديد: اعمله الأول، وبعدين ارجع ليوتيوب. وفي أيقونة Language Lens هتلاقي الإعدادات المهمة فوق، والباقي تحت <b>More settings</b>، ورابط <b>How to use it</b> بيفتحلك الصفحة دي.</p></div>
 				<div class="lg-vis"><?php echo $img( 'popup-signin.webp', 'نافذة Language Lens وزرار Sign in with Sawa English', 720, 660, 'narrow-shot' ); // phpcs:ignore ?></div>
 			</li>
 		</ol>
@@ -122,7 +122,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 		<div class="lg-alt" id="android">
 			<h3>أندرويد <span class="tag">تجريبي</span></h3>
 			<p>Language Lens بتشتغل على موقع يوتيوب للموبايل <b dir="ltr">m.youtube.com</b>: اضغط على الكلمة بإصبعك بدل الماوس، والكارت بيطلع من تحت. لسه بنجرّبها على موبايلات حقيقية، فلو جرّبت وحصلت مشكلة قولّي.</p>
-			<ol><li>استخدم متصفح بيقبل الإضافات اليدوية مثل <b>Lemur Browser</b> أو <b>Kiwi Browser</b>.</li><li>نزّل <a href="<?php echo esc_url( $chrome ); ?>" download>ملف Chrome</a> على الموبايل.</li><li>افتح <b dir="ltr">chrome://extensions</b> وشغّل <b>Developer mode</b> ثم <b>+ (from .zip/.crx)</b> ثم اختار الملف.</li><li>افتح <b dir="ltr">m.youtube.com</b> (مش التطبيق) واختار فيديو بترجمة إنجليزي.</li></ol>
+			<ol><li>استخدم متصفح بيقبل الإضافات اليدوية مثل <b>Lemur Browser</b> أو <b>Kiwi Browser</b>.</li><li>نزّل <a href="<?php echo esc_url( $chrome ); ?>" download>ملف Chrome</a> على الموبايل.</li><li>افتح <b dir="ltr">chrome://extensions</b> وشغّل <b>Developer mode</b> ثم <b>+ (from .zip/.crx)</b> ثم اختار الملف.</li><li>سجّل دخول من أيقونة Language Lens. بعد أول تسجيل هيفتحلك اختبار تحديد المستوى في تبويب جديد: اعمله الأول وبعدين ارجع.</li><li>افتح <b dir="ltr">m.youtube.com</b> (مش التطبيق) واختار فيديو بترجمة إنجليزي، واضغط على أي كلمة.</li></ol>
 			<p class="fine">تطبيق يوتيوب العادي مش بيقبل إضافات، لازم المتصفح. وأيفون: قريبًا.</p>
 		</div>
 		<div class="lg-alt" id="update">
@@ -146,11 +146,11 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			</article>
 			<article class="lg-use">
 				<div class="lg-vis"><div class="phone"><?php echo $img( 'yt-card.webp', 'كارت الكلمة: النطق والمستوى وأزرار I know it وLearning وCurious', 786, 1480 ); // phpcs:ignore ?></div></div>
-				<div class="lg-txt"><span class="lg-n">٢</span><h3>اضغط على كلمة واحفظها</h3><p>على الكمبيوتر حط الماوس على الكلمة. على الموبايل اضغط عليها. هيفتح كارت فيه المعنى والنطق والمستوى من A1 لحد C2 وتختار:</p><ul><li><b>✓ I know it</b>: عارفها.</li><li><b>Learning</b>: عايز تحفظها (الكلمات المهمة بس).</li><li><b>💡 Curious</b>: عايز تفهمها بس وبتاخد XP.</li></ul><p>كل كلمة تحفظها بتظهر في <b>Review</b> في <a href="<?php echo esc_url( $app ); ?>">تطبيق سوا</a> كارت مراجعة.</p></div>
+				<div class="lg-txt"><span class="lg-n">٢</span><h3>اضغط على كلمة واحفظها</h3><p>على الكمبيوتر حط الماوس على الكلمة. على الموبايل اضغط عليها (على الموبايل ده بيشتغل في أي موقع، مش يوتيوب بس؛ والضغط المطوّل بيحدد كلمات). هيفتح كارت فيه المعنى والنطق والمستوى من A1 لحد C2 وتختار:</p><ul><li><b>✓ I know it</b>: عارفها.</li><li><b>Learning</b>: عايز تحفظها (الكلمات المهمة بس).</li><li><b>💡 Curious</b>: عايز تفهمها بس وبتاخد XP.</li></ul><p>لو المعنى مش واضح، دوس <b>💬 Meaning here</b> تحت الكارت: بيشرحلك معنى الكلمة <b>في الجملة دي بالذات</b>.</p><p>كل كلمة تحفظها بتظهر في <b>Review</b> في <a href="<?php echo esc_url( $app ); ?>">تطبيق سوا</a> كارت مراجعة.</p></div>
 			</article>
 			<article class="lg-use">
 				<div class="lg-vis"><div class="phone"><?php echo $img( 'yt-transcript.webp', 'الـ Transcript تحت الفيديو وكل جملة جنبها أزرار التكرار والنجمة', 786, 1480 ); // phpcs:ignore ?></div></div>
-				<div class="lg-txt"><span class="lg-n">٣</span><h3>Transcript، تكرار، وحفظ جمل</h3><p>تحت الفيديو كل الكلام مكتوب. دوس على أي جملة تتشغّل. وجنب كل جملة:</p><ul><li><b>🔁 Repeat</b>: تتكرر وقولها ورا المتكلم.</li><li><b>☆ النجمة</b>: تحفظ الجملة في كروت المراجعة.</li><li>زرار الموجة: إزاي بتتنطق في الكلام السريع.</li></ul><p>على الكمبيوتر كمان: <b>A / S / D</b> للجملة اللي قبلها / تكرار / اللي بعدها.</p></div>
+				<div class="lg-txt"><span class="lg-n">٣</span><h3>Transcript، تكرار، وحفظ جمل</h3><p>تحت الفيديو كل الكلام مكتوب. دوس على أي جملة تتشغّل. وجنب كل جملة:</p><ul><li><b>Auto-scroll</b> (فوق الـ Transcript): الشرح بيمشي لوحده مع الفيديو.</li><li><b>🔁 Repeat</b>: تتكرر وقولها ورا المتكلم.</li><li><b>☆ النجمة</b>: تحفظ الجملة في كروت المراجعة.</li><li>زرار الموجة: إزاي بتتنطق في الكلام السريع.</li></ul><p>على الكمبيوتر كمان: <b>A / S / D</b> للجملة اللي قبلها / تكرار / اللي بعدها.</p></div>
 			</article>
 			<article class="lg-use">
 				<div class="lg-vis"><?php echo $img( 'web-4-save.webp', 'تحديد جملة على موقع عادي وحفظها', 1000, 625 ); // phpcs:ignore ?></div>
