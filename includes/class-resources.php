@@ -21,6 +21,26 @@ final class Sawa_Site_Resources {
 		'download' => 'ملف',
 		'tool'     => 'أداة',
 	);
+	const TYPES_EN = array(
+		'course'   => 'Course',
+		'video'    => 'Video',
+		'reading'  => 'Reading',
+		'download' => 'File',
+		'tool'     => 'Tool',
+	);
+	const LEVELS_EN = array(
+		'all' => 'All levels',
+		'a2'  => 'A2',
+		'b1'  => 'B1',
+	);
+
+	/** A type or level label in both languages (HTML). $set: 'TYPES' or 'LEVELS'. */
+	public static function label( $set, $key ) {
+		$ar = 'TYPES' === $set ? self::TYPES : self::LEVELS;
+		$en = 'TYPES' === $set ? self::TYPES_EN : self::LEVELS_EN;
+		return isset( $ar[ $key ] ) ? Sawa_Lang::t( $en[ $key ], $ar[ $key ] ) : esc_html( $key );
+	}
+
 	const LEVELS = array(
 		'all' => 'كل المستويات',
 		'a2'  => 'A2',

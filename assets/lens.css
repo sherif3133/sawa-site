@@ -77,3 +77,32 @@
 .close .cta-row { margin-top: 32px; }
 .lg-txt .btn { white-space: normal; text-align: center; }
 @media (max-width: 760px) { .lg-txt .btn-lg { width: 100%; padding-inline: 18px; } }
+
+/* ---- language switch: English by default, Arabic (RTL) when html[data-lang="ar"] ---- */
+html[data-lang="ar"] .t-en, html:not([data-lang="ar"]) .t-ar { display: none !important; }
+html[dir="ltr"] body.sawa-lens-page { direction: ltr; text-align: left; }
+html[dir="rtl"] body.sawa-lens-page { direction: rtl; text-align: right; }
+.lang-bar { background: var(--graphite); color: var(--white); font-size: 14.5px; }
+.lang-row { display: flex; align-items: center; justify-content: flex-end; gap: 12px; min-height: 44px; }
+.lang-hint { color: rgba(255, 255, 255, .7); }
+.lang-toggle { display: inline-flex; border: 1.5px solid rgba(255, 255, 255, .45); border-radius: 999px; overflow: hidden; }
+.lang-toggle button { font: 600 15px/1 var(--body); color: var(--white); background: transparent; border: 0; padding: 9px 18px; min-height: 40px; cursor: pointer; }
+.lang-toggle button[aria-pressed="true"] { background: var(--white); color: var(--ink); }
+.lang-toggle button:focus-visible { outline: 2px solid var(--red); outline-offset: -3px; }
+html[dir="ltr"] .faq summary { padding: 20px 40px 20px 0; }
+html[dir="ltr"] .faq summary::after { left: auto; right: 6px; }
+html[dir="ltr"] .lg-alt ul, html[dir="ltr"] .lg-alt ol { padding-inline-start: 1.4em; }
+html[dir="ltr"] .skip { right: auto; left: 16px; }
+.lg-hero-text h1, .lg-txt h3 { overflow-wrap: anywhere; }
+html[data-lang="en"] .lg-hero-text h1, html:not([data-lang="ar"]) .lg-hero-text h1 { font-size: clamp(34px, 5.4vw, 64px); }
+
+/* pin step: four small screenshots */
+.lg-steps > li.lg-pin { grid-template-columns: minmax(0, 1fr); }
+.lg-pins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.lg-pins li { display: block; background: transparent; padding: 0; border-radius: 0; }
+.lg-pins figure { margin: 0; background: var(--white); border-radius: 14px; padding: 14px; height: 100%; }
+.lg-pins figcaption { margin-top: 12px; color: var(--text-2); font-size: 16.5px; }
+.lg-pins figcaption > b:first-child { font-family: var(--display); color: var(--red); margin-inline-end: 4px; }
+.lg-pins .shot { border-radius: 8px; }
+@media (max-width: 760px) { .lg-pins { grid-template-columns: minmax(0, 1fr); } .lang-row { justify-content: space-between; } }
+.lg-vis .shot + .shot { margin-top: 12px; }

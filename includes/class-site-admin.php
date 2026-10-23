@@ -80,11 +80,14 @@ final class Sawa_Site_Admin {
 				<h2>Joining</h2>
 				<table class="form-table" role="presentation">
 					<?php
-					$f( 'join_url', 'Join link (Skool)', 'Every "ادخل سوا انجليش" button goes here.', 'url' );
+					$f( 'join_url', 'Join link (Skool)', 'Every "Join Sawa English" button goes here.', 'url' );
 					$f( 'price', 'Price', 'Shown on the Join page and the final section, e.g. <code>$29</code>.' );
-					$f( 'price_period', 'Price period', 'e.g. <code>في الشهر</code>' );
-					$f( 'price_note', 'Price note' );
-					$f( 'guarantee', 'Guarantee line' );
+					$f( 'price_period_en', 'Price period (English)', 'e.g. <code>a month</code>. The site opens in English; students can switch to Arabic at the top.' );
+					$f( 'price_period', 'Price period (Arabic)', 'e.g. <code>في الشهر</code>' );
+					$f( 'price_note_en', 'Price note (English)' );
+					$f( 'price_note', 'Price note (Arabic)' );
+					$f( 'guarantee_en', 'Guarantee line (English)' );
+					$f( 'guarantee', 'Guarantee line (Arabic)' );
 					$f( 'vsl_url', 'Join page video (optional)', 'A YouTube link to your VSL. Shown under the Join page headline.', 'url' );
 					?>
 				</table>

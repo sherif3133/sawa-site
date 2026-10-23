@@ -8,16 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 $sawa_tpl = Sawa_Site::current_template();
 ?><!doctype html>
-<html dir="rtl" lang="ar">
+<html dir="ltr" lang="en">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F0F10">
+<?php echo Sawa_Lang::boot(); // phpcs:ignore -- English by default, Arabic on request ?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip" href="#main">اتخطى للمحتوى</a>
+<a class="skip" href="#main"><?php echo Sawa_Lang::t( 'Skip to content', 'اتخطى للمحتوى' ); // phpcs:ignore ?></a>
 <?php echo Sawa_Site::header(); // phpcs:ignore ?>
 <main id="main">
 <?php

@@ -15,7 +15,7 @@ while ( have_posts() ) :
 		<header class="hero light post-hero">
 			<div class="wrap narrow">
 				<p class="meta">
-					<a class="text-link" href="<?php echo esc_url( Sawa_Site::blog_url() ); ?>">المدونة</a>
+					<a class="text-link" href="<?php echo esc_url( Sawa_Site::blog_url() ); ?>"><?php echo sawa_t( 'Blog', 'المدونة' ); // phpcs:ignore ?></a>
 					<?php if ( $sawa_cat ) : ?>
 						· <a class="text-link" href="<?php echo esc_url( get_category_link( $sawa_cat[0] ) ); ?>"><?php echo esc_html( $sawa_cat[0]->name ); ?></a>
 					<?php endif; ?>
@@ -24,7 +24,7 @@ while ( have_posts() ) :
 				<p class="meta post-by">
 					<?php echo esc_html( get_the_author() ); ?> ·
 					<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time> ·
-					<?php echo esc_html( Sawa_Site::read_time() ); ?>
+					<?php echo Sawa_Site::read_time(); // phpcs:ignore ?>
 				</p>
 			</div>
 		</header>
@@ -47,15 +47,15 @@ while ( have_posts() ) :
 				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
-		<nav class="wrap narrow post-nav" aria-label="مقالات تانية">
+		<nav class="wrap narrow post-nav" aria-label="More articles">
 			<?php
 			$sawa_prev = get_previous_post();
 			$sawa_next = get_next_post();
 			if ( $sawa_next ) {
-				echo '<a href="' . esc_url( get_permalink( $sawa_next ) ) . '"><span class="meta">المقال الأحدث</span><b dir="auto">' . esc_html( get_the_title( $sawa_next ) ) . '</b></a>';
+				echo '<a href="' . esc_url( get_permalink( $sawa_next ) ) . '"><span class="meta">' . sawa_t( 'Newer article', 'المقال الأحدث' ) . '</span><b dir="auto">' . esc_html( get_the_title( $sawa_next ) ) . '</b></a>';
 			}
 			if ( $sawa_prev ) {
-				echo '<a href="' . esc_url( get_permalink( $sawa_prev ) ) . '"><span class="meta">المقال الأقدم</span><b dir="auto">' . esc_html( get_the_title( $sawa_prev ) ) . '</b></a>';
+				echo '<a href="' . esc_url( get_permalink( $sawa_prev ) ) . '"><span class="meta">' . sawa_t( 'Older article', 'المقال الأقدم' ) . '</span><b dir="auto">' . esc_html( get_the_title( $sawa_prev ) ) . '</b></a>';
 			}
 			?>
 		</nav>

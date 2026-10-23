@@ -9,32 +9,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( is_search() ) {
 	/* translators: search phrase */
-	$sawa_title = sprintf( 'نتايج البحث عن "%s"', get_search_query() );
+	$sawa_title = sawa_t( sprintf( 'Search results for "%s"', get_search_query() ), sprintf( 'نتايج البحث عن "%s"', get_search_query() ) );
 } elseif ( is_category() || is_tag() ) {
-	$sawa_title = single_term_title( '', false );
+	$sawa_title = esc_html( single_term_title( '', false ) );
 } elseif ( is_author() ) {
-	$sawa_title = 'مقالات ' . get_the_author_meta( 'display_name', (int) get_query_var( 'author' ) );
+	$sawa_name  = get_the_author_meta( 'display_name', (int) get_query_var( 'author' ) );
+	$sawa_title = sawa_t( 'Articles by ' . $sawa_name, 'مقالات ' . $sawa_name );
 } elseif ( is_date() ) {
-	$sawa_title = 'أرشيف ' . get_the_date( 'F Y' );
+	$sawa_title = sawa_t( 'Archive: ' . get_the_date( 'F Y' ), 'أرشيف ' . get_the_date( 'F Y' ) );
 } else {
-	$sawa_title = 'المدونة';
+	$sawa_title = sawa_t( 'Blog', 'المدونة' );
 }
 $sawa_main = ! is_search() && ! is_category() && ! is_tag() && ! is_author() && ! is_date();
 ?>
 <section class="hero light free-hero blog-hero">
 	<div class="wrap">
-		<p class="eyebrow">مقالات طويلة عن التعلم، والعقلية، والاستمرار</p>
-		<h1 dir="auto"><?php echo esc_html( $sawa_title ); ?></h1>
+		<p class="eyebrow"><?php echo sawa_t( 'Long articles about learning, mindset, and keeping going', 'مقالات طويلة عن التعلم، والعقلية، والاستمرار' ); // phpcs:ignore ?></p>
+		<h1 dir="auto"><?php echo $sawa_title; // phpcs:ignore -- escaped above ?></h1>
 		<?php if ( $sawa_main ) : ?>
 			<p class="serif">read slowly.</p>
 		<?php elseif ( is_category() && category_description() ) : ?>
 			<div class="lead"><?php echo wp_kses_post( category_description() ); ?></div>
 		<?php endif; ?>
 		<form class="blog-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-			<label class="sr" for="blog-s">دوّر في المدونة</label>
-			<input id="blog-s" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="دوّر في المدونة" dir="auto">
+			<label class="sr" for="blog-s"><?php echo sawa_t( 'Search the blog', 'دوّر في المدونة' ); // phpcs:ignore ?></label>
+			<input id="blog-s" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="Search the blog"<?php echo Sawa_Lang::attr( array( 'placeholder' => array( 'Search the blog', 'دوّر في المدونة' ) ) ); // phpcs:ignore ?> dir="auto">
 			<input type="hidden" name="post_type" value="post">
-			<button class="btn btn-ink btn-sm" type="submit">دوّر</button>
+			<button class="btn btn-ink btn-sm" type="submit"><?php echo sawa_t( 'Search', 'دوّر' ); // phpcs:ignore ?></button>
 		</form>
 	</div>
 </section>
@@ -65,7 +66,7 @@ $sawa_main = ! is_search() && ! is_category() && ! is_tag() && ! is_author() && 
 										<span class="res-type"><?php echo esc_html( $sawa_cat[0]->name ); ?></span>
 									<?php endif; ?>
 									<time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
-									<span><?php echo esc_html( Sawa_Site::read_time() ); ?></span>
+									<span><?php echo Sawa_Site::read_time(); // phpcs:ignore ?></span>
 								</span>
 								<span class="res-title" dir="auto"><?php the_title(); ?></span>
 								<span class="res-text" dir="auto"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 28 ) ); ?></span>
@@ -78,16 +79,16 @@ $sawa_main = ! is_search() && ! is_category() && ! is_tag() && ! is_author() && 
 			$sawa_pages = paginate_links(
 				array(
 					'type'      => 'list',
-					'prev_text' => 'الأحدث',
-					'next_text' => 'الأقدم',
+					'prev_text' => sawa_t( 'Newer', 'الأحدث' ),
+					'next_text' => sawa_t( 'Older', 'الأقدم' ),
 				)
 			);
 			if ( $sawa_pages ) {
-				echo '<nav class="pager" aria-label="صفحات المدونة">' . $sawa_pages . '</nav>'; // phpcs:ignore
+				echo '<nav class="pager" aria-label="Blog pages">' . $sawa_pages . '</nav>'; // phpcs:ignore
 			}
 			?>
 		<?php else : ?>
-			<p class="empty"><?php echo is_search() ? 'ملقيناش مقالات بالكلام ده. جرب كلمة تانية.' : 'لسه مفيش مقالات هنا.'; ?></p>
+			<p class="empty"><?php echo is_search() ? sawa_t( 'No articles found. Try another word.', 'ملقيناش مقالات بالكلام ده. جرب كلمة تانية.' ) : sawa_t( 'No articles here yet.', 'لسه مفيش مقالات هنا.' ); // phpcs:ignore ?></p>
 		<?php endif; ?>
 	</div>
 </section>

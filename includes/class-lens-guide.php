@@ -38,3 +38,31 @@ final class Sawa_Site_Lens {
 		exit;
 	}
 }
+
+/*
+ * Two-language helpers for the /lens/ page. English is the default; Arabic shows when html[data-lang="ar"]
+ * (set by the inline script in the page head from ?lang=ar or localStorage "sawa_lang"; toggle buttons carry data-set-lang).
+ * Block text:  lg_en('div') … English … lg_ar() … Arabic … lg_end()
+ * Short text:  echo lg_t( 'English', 'عربي' );
+ */
+if ( ! function_exists( 'lg_en' ) ) {
+	$GLOBALS['lg_tag'] = 'div';
+
+	function lg_en( $tag = 'div' ) {
+		$GLOBALS['lg_tag'] = $tag;
+		echo '<' . $tag . ' class="t t-en" lang="en" dir="ltr">'; // phpcs:ignore
+	}
+
+	function lg_ar() {
+		$tag = $GLOBALS['lg_tag'];
+		echo '</' . $tag . '><' . $tag . ' class="t t-ar" lang="ar" dir="rtl">'; // phpcs:ignore
+	}
+
+	function lg_end() {
+		echo '</' . $GLOBALS['lg_tag'] . '>'; // phpcs:ignore
+	}
+
+	function lg_t( $en, $ar, $tag = 'span' ) {
+		return '<' . $tag . ' class="t t-en" lang="en" dir="ltr">' . $en . '</' . $tag . '><' . $tag . ' class="t t-ar" lang="ar" dir="rtl">' . $ar . '</' . $tag . '>';
+	}
+}
