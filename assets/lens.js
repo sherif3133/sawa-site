@@ -10,7 +10,7 @@
   var steps = [].slice.call(document.querySelectorAll('.wz-step'));
   var byPath = {};
   steps.forEach(function (s) { (byPath[s.dataset.path] = byPath[s.dataset.path] || []).push(s.id); });
-  var OLD = { install: 'pc-1', pin: 'pc-6', edge: 'pc-3', firefox: 'pc-1', android: 'an-1', features: 'tour-1', use: 'tour-1' };
+  var OLD = { install: 'pc-1', pin: 'pc-6', edge: 'pc-3', firefox: 'pc-1', android: 'an-1', features: byPath.tour ? 'tour-1' : 'start', use: byPath.tour ? 'tour-1' : 'start' };
   var count = document.querySelector('.wz-count'), bar = document.querySelector('.wz-bar i');
   var back = document.querySelector('.wz-back'), next = document.querySelector('.wz-next');
   var cur = 'start';
@@ -30,7 +30,7 @@
     var p = pathOf(id), list = byPath[p] || [], i = list.indexOf(id);
     if (p === 'start') return '';
     if (i < list.length - 1) return list[i + 1];
-    return p === 'tour' ? '' : 'tour-1';
+    return p === 'tour' || !byPath.tour ? '' : 'tour-1'; // the tour can be switched off in the template ($tour)
   }
   function backOf(id) {
     var p = pathOf(id), list = byPath[p] || [], i = list.indexOf(id);

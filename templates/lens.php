@@ -3,7 +3,7 @@
  * /lens/: the Language Lens step-by-step guide. A full page of its own (no theme), phone-first.
  * One small step per screen with Back / Next and a progress bar (assets/lens.js); the step lives in the URL hash
  * (#pc-3, #an-2, #ip-1, #tour-5) so a student can come back to it. Without JavaScript every step shows, one under the other.
- * Paths: start (choose a device) → pc (Chrome / Edge) | an (Android, Lemur) | ip (iPhone, honest: not yet) → tour (one feature per step).
+ * Paths: start (choose a device) → pc (Chrome / Edge) | an (Android, Lemur) | ip (iPhone, honest: not yet) → tour (one feature per step, only when $tour is on).
  * In the tour, .on-pc / .on-phone text follows the device the student chose (html.dev-pc / html.dev-phone).
  * English by default; Arabic (RTL) with the English | العربية toggle in the header (Sawa_Lang::boot(); lg_en / lg_ar / lg_t write both languages).
  */
@@ -17,6 +17,7 @@ $firefox = Sawa_Site_Lens::file_url( 'language-lens-firefox.zip' );
 $app     = home_url( '/app/' );
 $here    = home_url( '/lens/' );
 $size    = Sawa_Site_Lens::size( 'language-lens-chrome.zip' );
+$tour    = false; // the feature tour (tour-1..13) stays off until Sherif's audit (2026-10-24); setup steps only
 
 /** A screenshot with English alt text now and Arabic alt text (data-alt-ar) that the language switch swaps in. */
 $img = function ( $n, $alt_en, $alt_ar, $w, $h, $cls = '' ) {
@@ -101,7 +102,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 					<a class="wz-choice" href="#pc-1" data-dev="pc"><span class="ic">💻</span><b><?php echo lg_t( 'Computer', 'كمبيوتر' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Chrome or Edge · Windows or Mac · 9 steps', 'Chrome أو Edge · ويندوز أو ماك · ٩ خطوات' ); // phpcs:ignore ?></small></a>
 					<a class="wz-choice" href="#an-1" data-dev="phone"><span class="ic">📱</span><b><?php echo lg_t( 'Android phone', 'موبايل أندرويد' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'With the free Lemur browser · 8 steps', 'بمتصفح Lemur المجاني · ٨ خطوات' ); // phpcs:ignore ?></small></a>
 					<a class="wz-choice" href="#ip-1" data-dev="phone"><span class="ic">📲</span><b><?php echo lg_t( 'iPhone', 'أيفون' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Not yet: see what works today', 'لسه: شوف إيه اللي شغال النهارده' ); // phpcs:ignore ?></small></a>
-					<a class="wz-choice wz-choice-alt" href="#tour-1"><span class="ic">✨</span><b><?php echo lg_t( 'Already installed', 'متثبتة عندي' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Show me what it can do · 13 features', 'وريني بتعمل إيه · ١٣ ميزة' ); // phpcs:ignore ?></small></a>
+					<?php if ( $tour ) : ?><a class="wz-choice wz-choice-alt" href="#tour-1"><span class="ic">✨</span><b><?php echo lg_t( 'Already installed', 'متثبتة عندي' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Show me what it can do · 13 features', 'وريني بتعمل إيه · ١٣ ميزة' ); // phpcs:ignore ?></small></a><?php endif; ?>
 				</div>
 			</div>
 		</article>
@@ -185,7 +186,12 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 
 		<?php $open( 'pc-9', 'pc', 'Review now', 'راجع دلوقتي' ); ?>
 			<?php lg_en( 'p' ); ?>After you save a word, the card shows <b>✓ Saved to your Review</b> and a <b>Review now</b> button with how many cards are ready. Click it: the Sawa app opens on your review cards. Review a few minutes a day and the words stay with you.<?php lg_ar(); ?>بعد ما تحفظ كلمة، الكارت بيقولك <b>✓ Saved to your Review</b> وفيه زرار <b>Review now</b> وعليه عدد الكروت الجاهزة. دوس عليه: تطبيق سوا هيفتح على كروت المراجعة. راجع كام دقيقة كل يوم والكلمات هتفضل معاك.<?php lg_end(); ?>
+			<?php if ( $tour ) : ?>
 			<?php lg_en( 'p' ); ?>🎉 <b>You’re set up!</b> Press <b>Next</b> to see everything else Language Lens can do, one feature at a time.<?php lg_ar(); ?>🎉 <b>كده خلصت التثبيت!</b> دوس <b>التالي</b> وشوف كل حاجة تانية Language Lens بتعملها، ميزة ميزة.<?php lg_end(); ?>
+			<?php else : ?>
+			<p class="lg-done"><?php echo lg_t( '🎉 You’re set up! Watch something you enjoy today and save 3 words.', '🎉 كده خلصت التثبيت! اتفرج النهارده على حاجة بتحبها واحفظ ٣ كلمات.' ); // phpcs:ignore ?></p>
+			<p class="wz-btns"><a class="btn btn-red btn-sm" href="<?php echo esc_url( $app ); ?>"><?php echo lg_t( 'Open my review cards', 'افتح كروت المراجعة' ); // phpcs:ignore ?></a> <a class="btn btn-ghost btn-sm" href="#start"><?php echo lg_t( 'Back to the start', 'ارجع للبداية' ); // phpcs:ignore ?></a></p>
+			<?php endif; ?>
 		<?php $vis(); ?>
 			<?php echo $card_mock; // phpcs:ignore ?>
 		<?php $close(); ?>
@@ -252,7 +258,12 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 		<?php $open( 'an-8', 'an', 'Review now', 'راجع دلوقتي' ); ?>
 			<?php lg_en( 'p' ); ?>After you save a word, the card shows a <b>Review now</b> button with how many cards are ready. Tap it: the Sawa app opens on your review cards.<?php lg_ar(); ?>بعد ما تحفظ كلمة، الكارت بيظهر زرار <b>Review now</b> وعليه عدد الكروت الجاهزة. دوس عليه: تطبيق سوا هيفتح على كروت المراجعة.<?php lg_end(); ?>
 			<?php lg_en( 'p' ); ?><b>Tip:</b> in the Sawa app, tap your browser’s menu → <b>Add to Home screen</b>, so Review is one tap away every day.<?php lg_ar(); ?><b>نصيحة:</b> في تطبيق سوا، دوس على قايمة المتصفح ثم <b>Add to Home screen</b>، عشان المراجعة تبقى بدوسة واحدة كل يوم.<?php lg_end(); ?>
+			<?php if ( $tour ) : ?>
 			<?php lg_en( 'p' ); ?>🎉 <b>You’re set up!</b> Press <b>Next</b> to see everything else you can do.<?php lg_ar(); ?>🎉 <b>كده خلصت التثبيت!</b> دوس <b>التالي</b> وشوف كل حاجة تانية تقدر تعملها.<?php lg_end(); ?>
+			<?php else : ?>
+			<p class="lg-done"><?php echo lg_t( '🎉 You’re set up! Watch something you enjoy today and save 3 words.', '🎉 كده خلصت التثبيت! اتفرج النهارده على حاجة بتحبها واحفظ ٣ كلمات.' ); // phpcs:ignore ?></p>
+			<p class="wz-btns"><a class="btn btn-red btn-sm" href="<?php echo esc_url( $app ); ?>"><?php echo lg_t( 'Open my review cards', 'افتح كروت المراجعة' ); // phpcs:ignore ?></a> <a class="btn btn-ghost btn-sm" href="#start"><?php echo lg_t( 'Back to the start', 'ارجع للبداية' ); // phpcs:ignore ?></a></p>
+			<?php endif; ?>
 		<?php $vis(); ?>
 			<?php echo $card_mock; // phpcs:ignore ?>
 		<?php $close(); ?>
@@ -273,7 +284,8 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<?php echo $card_mock; // phpcs:ignore ?>
 		<?php $close(); ?>
 
-		<!-- ============ Tour: one feature per step ============ -->
+		<!-- ============ Tour: one feature per step (off until Sherif's audit: $tour) ============ -->
+		<?php if ( $tour ) : ?>
 		<?php $open( 'tour-1', 'tour', 'Meanings in a second', 'المعنى في ثانية' ); ?>
 			<?php lg_en(); ?>
 			<p><?php echo $dv( '<b>Click</b> a word on YouTube, or <b>hover</b> it on other websites', '<b>Tap</b> any word, on YouTube or any website' ); // phpcs:ignore ?>. The card shows the Arabic meaning, how to say it, its level (A1 to C2), and a “sounds like” hint.</p>
@@ -429,6 +441,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 		<?php $vis(); ?>
 			<?php echo $img( 'popup-signin.webp', 'The Language Lens window', 'نافذة Language Lens', 720, 660, 'narrow-shot' ); // phpcs:ignore ?>
 		<?php $close(); ?>
+		<?php endif; ?>
 
 		</div>
 
@@ -436,7 +449,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<button type="button" class="btn btn-ghost btn-lg wz-back"><?php echo lg_t( '← Back', '→ رجوع' ); // phpcs:ignore ?></button>
 			<button type="button" class="btn btn-red btn-lg wz-next"><?php echo lg_t( 'Next →', 'التالي ←' ); // phpcs:ignore ?></button>
 		</nav>
-		<p class="wz-home"><a href="#start"><?php echo lg_t( 'Change device', 'غيّر الجهاز' ); // phpcs:ignore ?></a> · <a href="#tour-1"><?php echo lg_t( 'All features', 'كل المميزات' ); // phpcs:ignore ?></a> · <a href="#faq"><?php echo lg_t( 'Problems? Fixes', 'مشكلة؟ الحلول' ); // phpcs:ignore ?></a></p>
+		<p class="wz-home"><a href="#start"><?php echo lg_t( 'Change device', 'غيّر الجهاز' ); // phpcs:ignore ?></a><?php if ( $tour ) : ?> · <a href="#tour-1"><?php echo lg_t( 'All features', 'كل المميزات' ); // phpcs:ignore ?></a><?php endif; ?> · <a href="#faq"><?php echo lg_t( 'Problems? Fixes', 'مشكلة؟ الحلول' ); // phpcs:ignore ?></a></p>
 	</div>
 </section>
 
