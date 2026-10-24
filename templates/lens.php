@@ -340,7 +340,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 
 		<?php $open( 'tour-4', 'tour', 'Three caption lines on YouTube', 'تلات سطور ترجمة على يوتيوب' ); ?>
 			<?php lg_en(); ?>
-			<p>Over the video you get: the <b>English</b> sentence, the <b>Arabic</b> translation, and <b>how it sounds</b> in fast speech.</p>
+			<p>Over the video you get: the <b>English</b> sentence, the <b>Arabic</b> translation, and <b>Sounds Like</b> in fast speech.</p>
 			<ul><li>Turn each line on or off: tap <b>Aa</b> on the video bar.</li><li><b>Blur captions until <?php echo $dv( 'hover', 'tap' ); // phpcs:ignore ?></b>: listen first, then check. (Language Lens window → More settings.)</li><li>The Language Lens button next to <b>Aa</b> turns it all off and gives you YouTube’s own captions back.</li></ul>
 			<?php lg_ar(); ?>
 			<p>فوق الفيديو هتلاقي: الجملة <b>بالإنجليزي</b>، والترجمة <b>بالعربي</b>، و<b>إزاي بتتنطق</b> في الكلام السريع.</p>
