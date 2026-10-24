@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Sawa_Site_Lens {
 
 	/** Version of the zips in assets/lens/downloads. Change it when you copy new zips in. */
-	const VERSION = '0.18.0';
+	const VERSION = '0.18.1';
 
 	public static function file_url( $name ) {
 		return SAWA_SITE_URL . 'assets/lens/downloads/' . $name . '?v=' . self::VERSION; // new ?v= each release: Cloudflare keeps the old zip otherwise
