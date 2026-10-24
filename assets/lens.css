@@ -209,3 +209,22 @@ html:not(.dev-pc):not(.dev-phone) .on-phone { display: none; }
 .mk-flag .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-inline-end: 8px; vertical-align: -1px; }
 .mk-flag .y { background: #E69F00; }
 .mk-flag .g { background: #15803D; }
+
+/* the two big install choices at the very top */
+.lg-hero { padding-block: clamp(20px, 4vw, 48px) clamp(40px, 7vw, 90px); }
+.lg-pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.lg-pick-btn { display: flex; align-items: center; gap: 16px; text-decoration: none !important; background: var(--red); color: var(--white) !important; border-radius: 18px; padding: 20px 22px; min-height: 92px; box-shadow: 0 8px 24px rgba(227, 38, 43, .3); transition: transform .15s; }
+.lg-pick-btn + .lg-pick-btn { background: var(--white); color: var(--ink) !important; box-shadow: none; }
+.lg-pick-btn:hover, .lg-pick-btn:focus-visible { transform: translateY(-2px); }
+.lg-pick-btn .ic { font-size: 38px; line-height: 1; }
+.lg-pick-btn b { display: block; font: 800 clamp(21px, 2.6vw, 28px)/1.15 var(--display); }
+.lg-pick-btn small { display: block; font-size: 15px; opacity: .85; margin-top: 4px; }
+.lg-pick-note { margin: 12px 0 0; font-size: 15px; }
+.lg-pick-note a { color: var(--white); text-decoration: underline; text-underline-offset: 3px; padding: 6px 0; display: inline-block; }
+.lg-pick + .lg-pick-note + * , .lg-hero > .wrap + .lg-hero-grid { margin-top: clamp(28px, 5vw, 56px); }
+@media (max-width: 600px) { .lg-pick { grid-template-columns: minmax(0, 1fr); } .lg-hero-shot { display: none; } }
+
+/* animated step pictures */
+.gif { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); background: var(--white); display: block; }
+.gif-ph { max-width: 300px; margin-inline: auto; border: 0; background: transparent; }
+@media (max-width: 760px) { .gif-ph { max-width: 260px; } }

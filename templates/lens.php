@@ -23,6 +23,11 @@ $tour    = false; // the feature tour (tour-1..13) stays off until Sherif's audi
 $img = function ( $n, $alt_en, $alt_ar, $w, $h, $cls = '' ) {
 	return '<img class="shot ' . esc_attr( $cls ) . '" src="' . esc_url( Sawa_Site_Lens::img( $n ) ) . '" alt="' . esc_attr( $alt_en ) . '" data-alt-en="' . esc_attr( $alt_en ) . '" data-alt-ar="' . esc_attr( $alt_ar ) . '" width="' . (int) $w . '" height="' . (int) $h . '" loading="lazy" decoding="async">';
 };
+/** An animated step picture (animated WebP, made by language-lens/tools/guidegifs.js). $ph = shown in a phone frame. */
+$gif = function ( $n, $alt_en, $alt_ar, $phone = false ) {
+	$wh = $phone ? 'width="450" height="943"' : 'width="960" height="540"';
+	return '<img class="gif' . ( $phone ? ' gif-ph' : '' ) . '" src="' . esc_url( Sawa_Site_Lens::img( $n ) . '?v=' . SAWA_SITE_VER ) . '" alt="' . esc_attr( $alt_en ) . '" data-alt-en="' . esc_attr( $alt_en ) . '" data-alt-ar="' . esc_attr( $alt_ar ) . '" ' . $wh . ' loading="lazy" decoding="async">';
+};
 /** Device-dependent words inside a sentence: computer (mouse) / phone (finger). */
 $dv = function ( $pc, $phone ) {
 	return '<span class="on-pc">' . $pc . '</span><span class="on-phone">' . $phone . '</span>';
@@ -71,12 +76,18 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 
 <!-- Hero -->
 <section class="sec dark lg-hero">
+	<div class="wrap">
+		<div class="lg-pick">
+			<a class="lg-pick-btn" href="#an-1" data-dev="phone"><span class="ic">📱</span><span><b><?php echo lg_t( 'Install on your phone', 'ثبّتها على الموبايل' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Android · 8 short steps', 'أندرويد · ٨ خطوات قصيرة' ); // phpcs:ignore ?></small></span></a>
+			<a class="lg-pick-btn" href="#pc-1" data-dev="pc"><span class="ic">💻</span><span><b><?php echo lg_t( 'Install on P.C', 'ثبّتها على الكمبيوتر' ); // phpcs:ignore ?></b><small><?php echo lg_t( 'Chrome or Edge · 9 short steps', 'Chrome أو Edge · ٩ خطوات قصيرة' ); // phpcs:ignore ?></small></span></a>
+		</div>
+		<p class="lg-pick-note"><a href="#ip-1" data-dev="phone"><?php echo lg_t( 'Have an iPhone? Read this first', 'معاك أيفون؟ اقرا ده الأول' ); // phpcs:ignore ?></a></p>
+	</div>
 	<div class="wrap lg-hero-grid">
 		<div class="lg-hero-text">
 			<p class="meta"><?php echo lg_t( 'Language Lens · beta · for Sawa English students', 'Language Lens · نسخة بيتا · لطلاب سوا انجليش' ); // phpcs:ignore ?></p>
 			<h1><?php echo lg_t( 'Understand any English word <span class="red">while you watch and read</span>', 'افهم أي كلمة إنجليزي <span class="red">وإنت بتتفرج وبتقرا</span>', 'span' ); // phpcs:ignore ?></h1>
 			<?php lg_en( 'p' ); ?>Click (or tap) any word on YouTube or any website: its Arabic meaning, how to say it, and its level. Every word you save becomes a review card in the Sawa app. This page walks you through it one small step at a time.<?php lg_ar(); ?>دوس على أي كلمة في يوتيوب أو أي موقع: تلاقي معناها بالعربي ونطقها ومستواها. وكل كلمة تحفظها بتبقى كارت مراجعة في تطبيق سوا. الصفحة دي هتمشيك خطوة صغيرة ورا خطوة.<?php lg_end(); ?>
-			<div class="cta-row"><a class="btn btn-red btn-lg" href="#start"><?php echo lg_t( 'Start the step-by-step guide →', 'ابدأ الشرح خطوة بخطوة ←' ); // phpcs:ignore ?></a></div>
 			<p class="fine lg-fine"><?php echo lg_t( 'Language Lens', 'Language Lens' ); // phpcs:ignore ?> v<?php echo esc_html( $ver ); ?> · <a href="<?php echo esc_url( $chrome ); ?>" download><?php echo lg_t( 'Download only', 'تحميل بس' ); // phpcs:ignore ?></a> · <a href="#faq"><?php echo lg_t( 'Problems? Fixes', 'مشكلة؟ الحلول' ); // phpcs:ignore ?></a></p>
 		</div>
 		<div class="lg-hero-shot"><div class="phone"><?php echo $img( 'yt-captions.webp', 'YouTube on a phone: the English line, the Arabic translation under it and how it sounds', 'يوتيوب على الموبايل: الجملة الإنجليزي وتحتها الترجمة العربي وطريقة النطق', 786, 1480, 'hero-img' ); // phpcs:ignore ?></div></div>
@@ -115,7 +126,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 				<?php lg_en( 'p' ); ?>Download the <a href="<?php echo esc_url( $firefox ); ?>" download>Firefox version</a>, open <b dir="ltr">about:debugging#/runtime/this-firefox</b> → <b>Load Temporary Add-on…</b> → choose the zip file itself. Firefox removes it each time you close Firefox, until Firefox’s add-on store approves us. Chrome or Edge is easier.<?php lg_ar(); ?>حمّل <a href="<?php echo esc_url( $firefox ); ?>" download>نسخة Firefox</a>، وافتح <b dir="ltr">about:debugging#/runtime/this-firefox</b> ثم <b>Load Temporary Add-on…</b> واختار ملف الـ zip نفسه. Firefox بيشيلها كل ما تقفله، لحد ما متجر إضافات Firefox يوافق علينا. Chrome أو Edge أسهل.<?php lg_end(); ?>
 			</details>
 		<?php $vis(); ?>
-			<div class="mk mk-file" dir="ltr"><span class="zipic">ZIP</span><span class="fn">language-lens-chrome.zip<small><?php echo esc_html( $size ); ?> · Downloads</small></span><span class="ok">✓</span></div>
+			<?php echo $gif( 'pc-download.webp', 'Clicking the red download button: Chrome shows language-lens-chrome.zip, Done', 'الضغط على زرار التحميل الأحمر، وChrome بيقول language-lens-chrome.zip خلص' ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'pc-2', 'pc', 'Unzip it (Extract)', 'فكّ الضغط (Extract)' ); ?>
@@ -123,7 +134,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<?php lg_en( 'p' ); ?><b>Keep this folder. Don’t delete or move it later</b>: the extension runs from it.<?php lg_ar(); ?><b>سيب الفولدر ده في مكانه وماتمسحوش بعدين</b>: الإضافة بتشتغل منه.<?php lg_end(); ?>
 			<?php echo lg_t( '<p class="fine">On a Mac: just double-click the file.</p>', '<p class="fine">على الماك: دوس دوستين على الملف وخلاص.</p>', 'div' ); // phpcs:ignore ?>
 		<?php $vis(); ?>
-			<div class="mk mk-menu" dir="ltr"><span>Open</span><span>Open with</span><span class="hl tapr">Extract All…</span><span>Copy as path</span></div>
+			<?php echo $gif( 'pc-extract.webp', 'In File Explorer: right-click the zip, choose Extract All, press Extract, and a new folder appears', 'في File Explorer: كليك يمين على الملف، Extract All، ثم Extract، وفولدر جديد بيظهر' ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'pc-3', 'pc', 'Open the extensions page', 'افتح صفحة الإضافات' ); ?>
@@ -137,14 +148,14 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<?php lg_en( 'p' ); ?>The <b>Developer mode</b> switch is at the top right. Click it so it turns <b>blue</b>.<?php lg_ar(); ?>زرار <b>Developer mode</b> فوق على اليمين. دوس عليه لحد ما يبقى <b>أزرق</b>.<?php lg_end(); ?>
 			<?php echo lg_t( '<p class="fine">On Edge it is in the left menu, near the bottom. If Chrome later shows a message about developer mode, that is normal: close it.</p>', '<p class="fine">على Edge هتلاقيه في القايمة اللي على الشمال تحت. ولو Chrome ظهّر بعدين رسالة عن Developer mode، عادي: اقفلها.</p>', 'div' ); // phpcs:ignore ?>
 		<?php $vis(); ?>
-			<?php echo $img( 'ext-1-devmode-off.webp', 'Chrome’s extensions page with a red ring around the Developer mode switch', 'صفحة إضافات Chrome وحلقة حمرا حوالين زرار Developer mode', 960, 510 ); // phpcs:ignore ?>
+			<?php echo $gif( 'pc-devmode.webp', 'Clicking the Developer mode switch on Chrome’s extensions page: the Load unpacked button appears', 'الضغط على زرار Developer mode في صفحة إضافات Chrome، فيظهر زرار Load unpacked' ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'pc-5', 'pc', 'Click “Load unpacked”', 'دوس “Load unpacked”' ); ?>
 			<?php lg_en( 'p' ); ?>A <b>Load unpacked</b> button appears at the top left. Click it and choose the folder you extracted in step 2: <b>the one with manifest.json directly inside</b>. Then press <b>Select folder</b>.<?php lg_ar(); ?>هيظهر زرار <b>Load unpacked</b> فوق على الشمال. دوس عليه واختار الفولدر اللي فكّيته في خطوة ٢: <b>اللي جواه ملف manifest.json على طول</b>. وبعدين دوس <b>Select folder</b>.<?php lg_end(); ?>
 			<?php lg_en( 'p' ); ?>You will see a <b>Language Lens</b> card, switched on. 🎉<?php lg_ar(); ?>هتلاقي كارت <b>Language Lens</b> ظهر وشغّال. 🎉<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<?php echo $img( 'ext-2-load-unpacked.webp', 'The Load unpacked button with a red ring around it', 'زرار Load unpacked وحواليه حلقة حمرا', 960, 510 ); // phpcs:ignore ?><?php echo $img( 'ext-3-loaded.webp', 'The Language Lens card in the extensions page, switched on', 'كارت Language Lens ظاهر وشغّال في صفحة الإضافات', 960, 510 ); // phpcs:ignore ?>
+			<?php echo $gif( 'pc-load.webp', 'Click Load unpacked, pick the language-lens-chrome folder, press Select Folder, and the Language Lens card appears', 'اضغط Load unpacked، اختار فولدر language-lens-chrome، اضغط Select Folder، وكارت Language Lens بيظهر' ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<article class="wz-step lg-pin" id="pc-6" data-path="pc">
@@ -211,26 +222,26 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<p><?php echo $dl_chrome; // phpcs:ignore ?></p>
 			<?php echo lg_t( '<p class="fine">Don’t unzip it: Lemur takes the zip file as it is.</p>', '<p class="fine">ماتفكّش الضغط: Lemur بياخد ملف الـ zip زي ما هو.</p>', 'div' ); // phpcs:ignore ?>
 		<?php $vis(); ?>
-			<?php echo $ph( 'sawaenglish.com/lens', '<div class="mk-ph-dl"><span class="zipic">ZIP</span><span>language-lens-chrome.zip<small>' . esc_html( $size ) . '</small></span></div><span class="mk-ph-btn hl tapr">⬇ Download</span>' ); // phpcs:ignore ?>
+			<?php echo $gif( 'an-download.webp', 'On the phone: tap the red download button: a message says the download is complete', 'على الموبايل: دوس زرار التحميل الأحمر، وتظهر رسالة إن التحميل خلص', true ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'an-3', 'an', 'Open Extensions', 'افتح Extensions' ); ?>
 			<?php lg_en( 'p' ); ?>In Lemur, tap the menu <b>⋮</b> (three dots, at the top or bottom right) → <b>Extensions</b>.<?php lg_ar(); ?>في Lemur دوس على القايمة <b>⋮</b> (التلات نقط، فوق أو تحت على اليمين) ثم <b>Extensions</b>.<?php lg_end(); ?>
 			<?php echo lg_t( '<p class="fine">Menus can look a little different between versions: look for the word “Extensions”.</p>', '<p class="fine">القوايم ممكن تختلف شوية من نسخة لنسخة: دوّر على كلمة “Extensions”.</p>', 'div' ); // phpcs:ignore ?>
 		<?php $vis(); ?>
-			<?php echo $ph( 'Lemur', '<ul class="mk-ph-menu"><li>New tab</li><li>Bookmarks</li><li>History</li><li>Downloads</li><li class="hl tapr">Extensions</li><li>Settings</li></ul>' ); // phpcs:ignore ?>
+			<?php echo $gif( 'an-menu.webp', 'In Lemur: tap the three dots, then Extensions', 'في Lemur: دوس على التلات نقط، وبعدين Extensions', true ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'an-4', 'an', 'Turn on Developer mode', 'شغّل Developer mode' ); ?>
 			<?php lg_en( 'p' ); ?>At the top of the Extensions page, tap the <b>Developer mode</b> switch so it turns on (blue).<?php lg_ar(); ?>فوق في صفحة Extensions، دوس على زرار <b>Developer mode</b> لحد ما يشتغل (يبقى أزرق).<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<?php echo $ph( 'Extensions', '<div class="mk-ph-row hl tapr"><span>Developer mode</span><i class="sw on"></i></div><div class="mk-ph-row dim"><span>+ (from .zip/.crx/.user.js)</span></div>' ); // phpcs:ignore ?>
+			<?php echo $gif( 'an-devmode.webp', 'Tap the Developer mode switch: new buttons appear, including + (from .zip/.crx/.user.js)', 'دوس على زرار Developer mode، فتظهر أزرار جديدة منها + (from .zip/.crx/.user.js)', true ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'an-5', 'an', 'Add the zip file', 'ضيف ملف الـ zip' ); ?>
 			<?php lg_en( 'p' ); ?>Tap <b>+ (from .zip/.crx/.user.js)</b> → open <b>Downloads</b> → tap <b>language-lens-chrome.zip</b> → <b>OK</b>. A <b>Language Lens</b> card appears, switched on.<?php lg_ar(); ?>دوس <b>+ (from .zip/.crx/.user.js)</b> ثم افتح <b>Downloads</b> ثم دوس على <b>language-lens-chrome.zip</b> ثم <b>OK</b>. هيظهر كارت <b>Language Lens</b> وهو شغّال.<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<?php echo $ph( 'Extensions', '<div class="mk-ph-row"><span>Developer mode</span><i class="sw on"></i></div><div class="mk-ph-row hl tapr"><span>+ (from .zip/.crx/.user.js)</span></div><div class="mk-ph-row card"><span>🔍 Language Lens – Sawa English</span><i class="sw on"></i></div>' ); // phpcs:ignore ?>
+			<?php echo $gif( 'an-zip.webp', 'Tap + (from .zip/.crx/.user.js), pick language-lens-chrome.zip in Downloads, and the Language Lens card appears', 'دوس + (from .zip/.crx/.user.js)، اختار language-lens-chrome.zip من Downloads، وكارت Language Lens بيظهر', true ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'an-6', 'an', 'Sign in', 'سجّل دخول' ); ?>
@@ -240,7 +251,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<ol class="wz-list"><li>دوس <b>⋮</b> ثم <b>Extensions</b> ثم دوس على <b>Language Lens</b> عشان تفتح نافذتها. (في بعض النسخ أيقونتها بتظهر كمان جنب شريط العنوان.)</li><li>دوس <b>Sign in with Sawa English</b>. هيفتح تبويب جديد.</li><li>اختار <b>Continue with Google</b>، أو اكتب <b>الإيميل والباسورد</b>.</li><li>لما الصفحة تقول إنك اتوصلت، هيفتح اختبار المستوى القصير. اعمله، وبعدين ارجع للتبويب بتاعك.</li></ol>
 			<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<?php echo $ph( 'Language Lens', '<p class="mk-ph-p"><b>Language Lens</b><br><small>Sawa English</small></p><span class="mk-ph-btn hl tapr">Sign in with Sawa English</span>' ); // phpcs:ignore ?>
+			<?php echo $gif( 'an-signin.webp', 'Tap the three dots, then Language Lens, then Sign in with Sawa English', 'دوس على التلات نقط، وبعدين Language Lens، وبعدين Sign in with Sawa English', true ); // phpcs:ignore ?>
 		<?php $close(); ?>
 
 		<?php $open( 'an-7', 'an', 'Save your first word on m.youtube.com', 'احفظ أول كلمة على m.youtube.com' ); ?>
