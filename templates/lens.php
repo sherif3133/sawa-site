@@ -46,7 +46,7 @@ $close = function () {
 $ph = function ( $title, $rows ) {
 	return '<div class="mk-ph" dir="ltr"><div class="mk-ph-bar"><span>' . $title . '</span><b>⋮</b></div><div class="mk-ph-body">' . $rows . '</div></div>';
 };
-$card_mock = '<div class="mk mk-card" dir="ltr"><p class="w">struggle <small>/ˈstrʌɡ.əl/ · B1</small></p><p class="m">يكافح · to try very hard</p><div class="bt"><span>✓ I know it</span><span class="hl">Learning</span><span>💡 Curious</span></div><p class="sv">✓ Saved to your Review</p><span class="rv">Review now · 3 ready</span></div>';
+$card_mock = '<div class="mk mk-card" dir="ltr"><p class="w">struggle <small>/ˈstrʌɡ.əl/ · B1</small></p><p class="m">يكافح · to try very hard</p><div class="bt"><span>✓ Known</span><span class="hl">Learn</span><span>💡 Curious</span></div><p class="sv">✓ Saved to your Review</p><span class="rv">Review now · 3 ready</span></div>';
 
 $dl_chrome = '<a class="btn btn-red btn-lg" href="' . esc_url( $chrome ) . '" download>'
 	. lg_t( '⬇ Download Language Lens', '⬇ حمّل Language Lens' )
@@ -192,7 +192,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<p class="fine">الصور في الصفحة دي من الموبايل. على الكمبيوتر نفس الشكل بس أكبر.</p>
 			<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<div class="phone"><?php echo $img( 'yt-card.webp', 'The word card: pronunciation, level and the I know it, Learning and Curious buttons', 'كارت الكلمة: النطق والمستوى وأزرار I know it وLearning وCurious', 786, 1480 ); // phpcs:ignore ?></div>
+			<div class="phone"><?php echo $img( 'yt-card.webp', 'The word card: pronunciation, level and the Known, Learn and Curious buttons', 'كارت الكلمة: النطق والمستوى وأزرار Known وLearn وCurious', 786, 1480 ); // phpcs:ignore ?></div>
 		<?php $close(); ?>
 
 		<?php $open( 'pc-9', 'pc', 'Review now', 'راجع دلوقتي' ); ?>
@@ -263,7 +263,7 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 			<p class="fine">اضغط ضغطة طويلة عشان تحدد كذا كلمة. ودوس برّه الكارت عشان تقفله.</p>
 			<?php lg_end(); ?>
 		<?php $vis(); ?>
-			<div class="phone"><?php echo $img( 'yt-card.webp', 'On a phone: the word card slides up from the bottom with the I know it, Learning and Curious buttons', 'على الموبايل: كارت الكلمة طالع من تحت وفيه أزرار I know it وLearning وCurious', 786, 1480 ); // phpcs:ignore ?></div>
+			<div class="phone"><?php echo $img( 'yt-card.webp', 'On a phone: the word card slides up from the bottom with the Known, Learn and Curious buttons', 'على الموبايل: كارت الكلمة طالع من تحت وفيه أزرار Known وLearn وCurious', 786, 1480 ); // phpcs:ignore ?></div>
 		<?php $close(); ?>
 
 		<?php $open( 'an-8', 'an', 'Review now', 'راجع دلوقتي' ); ?>
@@ -312,14 +312,14 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 		<?php $open( 'tour-2', 'tour', 'Save words, phrases and sentences', 'احفظ كلمات وعبارات وجمل' ); ?>
 			<?php lg_en(); ?>
 			<p>In the word card, choose:</p>
-			<ul><li><b>✓ I know it</b>: no more colour on it.</li><li><b>Learning</b>: saved to your Review cards (keep this for important words).</li><li><b>💡 Curious</b>: you only looked it up. You get XP, but it is <b>not</b> saved.</li></ul>
+			<ul><li><b>✓ Known</b>: no more colour on it.</li><li><b>Learn</b>: saved to your Review cards (keep this for important words).</li><li><b>💡 Curious</b>: you only looked it up. You get XP, but it is <b>not</b> saved.</li></ul>
 			<p>Phrases like “give up” have a <b>double pink line</b>: <?php echo $dv( 'click', 'tap' ); // phpcs:ignore ?> any word of it for the whole phrase. <?php echo $dv( '<b>Select</b> some text', '<b>Press and hold</b>, then drag' ); // phpcs:ignore ?> to <b>Translate</b>, <b>Listen</b>, <b>Save sentence</b> or <b>Save expression</b>.</p>
-			<p class="fine">Word colours: yellow box = Learning · solid blue = new for you · dotted orange = hard or rare · double pink = phrase.</p>
+			<p class="fine">Word colours: yellow box = Learn · solid blue = new for you · dotted orange = hard or rare · double pink = phrase.</p>
 			<?php lg_ar(); ?>
 			<p>في كارت الكلمة اختار:</p>
-			<ul><li><b>✓ I know it</b>: اللون بيتشال من عليها.</li><li><b>Learning</b>: بتتحفظ في كروت المراجعة (خليها للكلمات المهمة).</li><li><b>💡 Curious</b>: بصّيت عليها بس. بتاخد XP، بس <b>مش</b> بتتحفظ.</li></ul>
+			<ul><li><b>✓ Known</b>: اللون بيتشال من عليها.</li><li><b>Learn</b>: بتتحفظ في كروت المراجعة (خليها للكلمات المهمة).</li><li><b>💡 Curious</b>: بصّيت عليها بس. بتاخد XP، بس <b>مش</b> بتتحفظ.</li></ul>
 			<p>العبارات زي “give up” عليها <b>خطين بمبي</b>: دوس على أي كلمة فيها تاخد معنى العبارة كلها. <?php echo $dv( '<b>حدد</b> أي كلام', '<b>اضغط ضغطة طويلة</b> واسحب' ); // phpcs:ignore ?> عشان <b>Translate</b> أو <b>Listen</b> أو <b>Save sentence</b> أو <b>Save expression</b>.</p>
-			<p class="fine">ألوان الكلمات: مربع أصفر = Learning · خط أزرق = جديدة ليك · خط برتقاني منقّط = صعبة أو نادرة · خطين بمبي = عبارة.</p>
+			<p class="fine">ألوان الكلمات: مربع أصفر = Learn · خط أزرق = جديدة ليك · خط برتقاني منقّط = صعبة أو نادرة · خطين بمبي = عبارة.</p>
 			<?php lg_end(); ?>
 		<?php $vis(); ?>
 			<?php echo $img( 'web-4-save.webp', 'Selecting a phrase on a normal website and saving it', 'تحديد جملة على موقع عادي وحفظها', 1000, 625 ); // phpcs:ignore ?>
@@ -377,10 +377,10 @@ $dl_ff     = '<a class="btn btn-ghost-light btn-lg" href="' . esc_url( $firefox 
 
 		<?php $open( 'tour-7', 'tour', 'Quiz mode', 'وضع الأسئلة (Quiz)' ); ?>
 			<?php lg_en(); ?>
-			<ul><li><b>Sherif’s quizzes:</b> on some of Sherif’s videos, the video pauses at the right moment and asks you a question. Answer, see why, and the video goes on.</li><li><b>Quiz me on my Learning words:</b> when a word you are learning comes up in any video, the video sometimes pauses for a quick question (at most one every 3 minutes).</li></ul>
+			<ul><li><b>Sherif’s quizzes:</b> on some of Sherif’s videos, the video pauses at the right moment and asks you a question. Answer, see why, and the video goes on.</li><li><b>Quiz me on the words I learn:</b> when a word you are learning comes up in any video, the video sometimes pauses for a quick question (at most one every 3 minutes).</li></ul>
 			<p class="fine">Don’t want it now? Press <b>Stop these quizzes</b> in the question, or switch it in the Language Lens panel → <b>Display ▾</b>.</p>
 			<?php lg_ar(); ?>
-			<ul><li><b>أسئلة شريف:</b> في بعض فيديوهات شريف، الفيديو بيقف في اللحظة المناسبة ويسألك سؤال. جاوب، شوف ليه، والفيديو يكمّل.</li><li><b>Quiz me on my Learning words:</b> لما كلمة إنت بتتعلمها تيجي في أي فيديو، الفيديو ساعات بيقف لسؤال سريع (مرة كل ٣ دقايق بالكتير).</li></ul>
+			<ul><li><b>أسئلة شريف:</b> في بعض فيديوهات شريف، الفيديو بيقف في اللحظة المناسبة ويسألك سؤال. جاوب، شوف ليه، والفيديو يكمّل.</li><li><b>Quiz me on the words I learn:</b> لما كلمة إنت بتتعلمها تيجي في أي فيديو، الفيديو ساعات بيقف لسؤال سريع (مرة كل ٣ دقايق بالكتير).</li></ul>
 			<p class="fine">مش عايزها دلوقتي؟ دوس <b>Stop these quizzes</b> في السؤال، أو غيّرها من لوحة Language Lens ثم <b>Display ▾</b>.</p>
 			<?php lg_end(); ?>
 		<?php $vis(); ?>
